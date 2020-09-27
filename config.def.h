@@ -36,8 +36,9 @@ static const char *colors[SchemeLast][9] = {
 	[SchemeYellow] = { "#ffffff", "#E09F52", "#CA8635" },
 };
 
-/* -l option; if nonzero, instantmenu uses vertical list with given number of lines */
+/* -l and -g options; controls number of lines and columns in grid if > 0 */
 static unsigned int lines      = 0;
+static unsigned int columns    = 0;
 
 /*
  * Characters not considered part of a word while deleting words
