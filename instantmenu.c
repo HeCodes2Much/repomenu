@@ -34,7 +34,7 @@
 
 
 /* enums */
-enum { SchemeNorm, SchemeFade, SchemeHighlight, SchemeHover, SchemeSel, SchemeOut, SchemeGreen, SchemeYellow, SchemeRed, SchemeLast }; /* color schemes */
+enum { SchemeNorm, SchemeFade, SchemeHighlight, SchemeHover, SchemeSel, SchemeOut, SchemeMid, SchemeGreen, SchemeYellow, SchemeRed, SchemeLast }; /* color schemes */
 
 struct item {
 	char *text;
@@ -169,7 +169,6 @@ drawitem(struct item *item, int x, int y, int w)
 				case 'h':
 					drw_setscheme(drw, scheme[SchemeHighlight]);
 					break;
-
 				case 'b':
 					drw_setscheme(drw, scheme[SchemeSel]);
 					break;
@@ -211,6 +210,8 @@ drawitem(struct item *item, int x, int y, int w)
 	} else {
 		if (item == sel)
 			drw_setscheme(drw, scheme[SchemeSel]);
+		else if (item->left == sel || item->right == sel)
+			drw_setscheme(drw, scheme[SchemeMid]);
 		else if (item->out)
 			drw_setscheme(drw, scheme[SchemeOut]);
 		else
