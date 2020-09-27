@@ -1,0 +1,7 @@
+config.h
+drw.o
+util.o
+instantmenu
+instantmenu.o
+itest
+itest.o
