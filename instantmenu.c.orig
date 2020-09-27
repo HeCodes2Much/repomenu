@@ -1473,8 +1473,10 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: instantmenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn font]\n"
-	      "             [-m monitor] [-x xoffset] [-y yoffset] [-w width] [-h height]\n"
+	fputs("usage: instantmenu [-bfinPv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+	      "             [-x xoffset] [-y yoffset] [-w width]\n"
+	      "             [-h height]\n"
+
 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
 	exit(1);
 }
@@ -1533,20 +1535,16 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-lc"))   /* adds prompt to left of input field */
 			leftcmd = argv[++i];
 		/* these options take one argument */
-		else if (!strcmp(argv[i], "-g")) {   /* number of columns in grid */
-			columns = atoi(argv[++i]);
-			if (lines == 0) lines = 1;
-		} else if (!strcmp(argv[i], "-l")) { /* number of lines in grid */
+		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 			lines = atoi(argv[++i]);
-			if (columns == 0) columns = 1;
-		} else if (!strcmp(argv[i], "-m"))
-			mon = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-x"))   /* window x offset */
 			dmx = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-y"))   /* window y offset (from bottom up if -b) */
 			dmy = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-w"))   /* make instantmenu this wide */
 			dmw = atoi(argv[++i]);
+		else if (!strcmp(argv[i], "-m")) // select monitor
+			mon = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
 			prompt = argv[++i];
 		else if (!strcmp(argv[i], "-q"))   /* adds prompt to left of input field */
