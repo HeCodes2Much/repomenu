@@ -25,12 +25,13 @@ static const char *leftcmd      = NULL;      /* -p  option; prompt to the left o
 static const char *rightcmd      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][9] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#A4ABAA", "#292F34" },
-	[SchemeFade] = { "#575E70", "#292f3a", "#3E485B" },
+	[SchemeNorm] = { "#A4ABAA", "#292F34", "#292F34" },
+	[SchemeFade] = { "#575E70", "#292F34", "#3E485B" },
 	[SchemeHighlight] = { "#ffffff", "#596377", "#3E485B" },
 	[SchemeHover] = { "#ffffff", "#353D4B", "#3E485B" },
-	[SchemeSel] = { "#ffffff", "#2EB398" },
-	[SchemeOut] = { "#000000", "#00ffff" },
+	[SchemeSel] = { "#ffffff", "#2EB398", "#2EB398" },
+	[SchemeOut] = { "#000000", "#2EB398", "#2EB398" },
+	[SchemeMid] = { "#A4ABAA", "#1E2429", "#1E2429" },
 	[SchemeGreen] = { "#ffffff", "#52E067", "#35CA4B" },
 	[SchemeRed] = { "#ffffff", "#E0527E", "#CA3563" },
 	[SchemeYellow] = { "#ffffff", "#E09F52", "#CA8635" },
@@ -50,4 +51,4 @@ static const char worddelimiters[] = " ";
 static unsigned int preselected = 0;
 
 /* Size of the window border */
-static unsigned int border_width = 2;
+static unsigned int border_width = 0;
