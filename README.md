@@ -1,7 +1,7 @@
 <div align="center">
     <h1>instamenu</h1>
     <p>General purpose menu for window managers</p>
-    <img width="300" height="300" src="https://media.githubusercontent.com/media/TheCynicalTeam/instamenu/master/screenshots/2020-9-28.png">
+    <img width="300" height="300" src="https://media.githubusercontent.com/media/TheCynicalTeam/instamenu/main/screenshots/2020-9-28.png">
 </div>
 
 instamenu is a simple menu forked from dmenu
