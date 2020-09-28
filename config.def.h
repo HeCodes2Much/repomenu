@@ -16,7 +16,10 @@ static unsigned int lineheight = 0;         /* -h option; minimum height of a me
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"Cantarell-Regular:size=12"
+	"Misc Termsyn:size=12",
+	"Siji:size=10",
+	"MaterialIcons:size=10",
+	"xos4 Terminus:size=12"
 };
 
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
