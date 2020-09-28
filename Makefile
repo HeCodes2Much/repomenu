@@ -1,15 +1,15 @@
-# instantmenu - menu for instantOS
+# instamenu - menu for instantOS
 # See LICENSE file for copyright and license details.
 
 include config.mk
 
-SRC = drw.c instantmenu.c itest.c util.c
+SRC = drw.c instamenu.c itest.c util.c
 OBJ = $(SRC:.c=.o)
 
-all: options instantmenu itest
+all: options instamenu itest
 
 options:
-	@echo instantmenu build options:
+	@echo instamenu build options:
 	@echo "CFLAGS   = $(CFLAGS)"
 	@echo "LDFLAGS  = $(LDFLAGS)"
 	@echo "CC       = $(CC)"
@@ -22,45 +22,45 @@ config.h:
 
 $(OBJ): arg.h config.h config.mk drw.h
 
-instantmenu: instantmenu.o drw.o util.o
-	$(CC) -o $@ instantmenu.o drw.o util.o $(LDFLAGS)
+instamenu: instamenu.o drw.o util.o
+	$(CC) -o $@ instamenu.o drw.o util.o $(LDFLAGS)
 
 itest: itest.o
 	$(CC) -o $@ itest.o $(LDFLAGS)
 
 clean:
-	rm -f instantmenu itest $(OBJ) instantmenu-$(VERSION).tar.gz config.h instantmenu
+	rm -f instamenu itest $(OBJ) instamenu-$(VERSION).tar.gz config.h instamenu
 
 dist: clean
-	mkdir -p instantmenu-$(VERSION)
-	cp LICENSE Makefile README arg.h config.def.h config.mk instantmenu.1\
-		drw.h util.h instantmenu_path instantmenu_run instantmenu_smartrun itest.1 $(SRC)\
-		instantmenu-$(VERSION)
-	tar -cf instantmenu-$(VERSION).tar instantmenu-$(VERSION)
-	gzip instantmenu-$(VERSION).tar
-	rm -rf instantmenu-$(VERSION)
+	mkdir -p instamenu-$(VERSION)
+	cp LICENSE Makefile README arg.h config.def.h config.mk instamenu.1\
+		drw.h util.h instamenu_path instamenu_run instamenu_smartrun itest.1 $(SRC)\
+		instamenu-$(VERSION)
+	tar -cf instamenu-$(VERSION).tar instamenu-$(VERSION)
+	gzip instamenu-$(VERSION).tar
+	rm -rf instamenu-$(VERSION)
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	cp -f instantmenu instantmenu_path instantmenu_run instantmenu_smartrun itest $(DESTDIR)$(PREFIX)/bin
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instantmenu
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instantmenu_path
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instantmenu_run
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instantmenu_smartrun
+	cp -f instamenu instamenu_path instamenu_run instamenu_smartrun itest $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_path
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_run
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_smartrun
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/itest
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
-	sed "s/VERSION/$(VERSION)/g" < instantmenu.1 > $(DESTDIR)$(MANPREFIX)/man1/instantmenu.1
+	sed "s/VERSION/$(VERSION)/g" < instamenu.1 > $(DESTDIR)$(MANPREFIX)/man1/instamenu.1
 	sed "s/VERSION/$(VERSION)/g" < itest.1 > $(DESTDIR)$(MANPREFIX)/man1/itest.1
-	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/instantmenu.1
+	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/instamenu.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/itest.1
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/instantmenu\
-		$(DESTDIR)$(PREFIX)/bin/instantmenu_path\
-		$(DESTDIR)$(PREFIX)/bin/instantmenu_run\
-		$(DESTDIR)$(PREFIX)/bin/instantmenu_smartrun\
+	rm -f $(DESTDIR)$(PREFIX)/bin/instamenu\
+		$(DESTDIR)$(PREFIX)/bin/instamenu_path\
+		$(DESTDIR)$(PREFIX)/bin/instamenu_run\
+		$(DESTDIR)$(PREFIX)/bin/instamenu_smartrun\
 		$(DESTDIR)$(PREFIX)/bin/itest\
-		$(DESTDIR)$(MANPREFIX)/man1/instantmenu.1\
+		$(DESTDIR)$(MANPREFIX)/man1/instamenu.1\
 		$(DESTDIR)$(MANPREFIX)/man1/itest.1
 
 .PHONY: all options clean dist install uninstall

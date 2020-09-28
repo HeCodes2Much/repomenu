@@ -1,5 +1,5 @@
---- instantmenu.c
-+++ instantmenu.c
+--- instamenu.c
++++ instamenu.c
 @@ -708,9 +714,13 @@ usage();
  		else if (!strcmp(argv[i], "-rc"))   /* adds prompt to left of input field */
  			rightcmd = argv[++i];

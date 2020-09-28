@@ -3,7 +3,7 @@
 # smart application launcher that remembers often used apps
 # define $1 to run in terminal
 if [ -z "$1" ]; then
-    LIST="$HOME/.cache/instantmenuhist"
+    LIST="$HOME/.cache/instamenuhist"
     ARGS="terminal"
 else
     LIST="$HOME/.cache/instanttermmenuhist"
@@ -12,9 +12,9 @@ fi
 # read history and path
 read -r SELECTION < <({
     tac "$LIST"
-    instantmenu_path | sort -u
+    instamenu_path | sort -u
 } | perl -nE '$seen{$_}++ or print' |
-    instantmenu -rc "instantmenu_smartrun $ARGS" -lc "instantmenu_smartrun $ARGS" \
+    instamenu -rc "instamenu_smartrun $ARGS" -lc "instamenu_smartrun $ARGS" \
         -p "${1}" -i -f -q "search apps" -l 10 -c -w -1 -h -1 -bw 4)
 
 # check if the application doesn't exist (indicated by exit code 1 and short runtime)
