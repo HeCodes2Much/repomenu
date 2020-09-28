@@ -1,4 +1,4 @@
-# instantmenu version
+# instamenu version
 VERSION = 4.9
 
 # paths

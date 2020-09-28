@@ -1,0 +1,2 @@
+#!/bin/sh
+instamenu_path | instamenu "$@" | ${SHELL:-"/bin/sh"} &

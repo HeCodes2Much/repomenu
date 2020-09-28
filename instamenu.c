@@ -48,8 +48,8 @@ static int tempnumer;
 static char text[BUFSIZ] = "";
 static char *embed;
 static int bh, mw, mh;
-static int dmx = 0, dmy = 0; /* put instantmenu at these x and y offsets */
-static int dmw = 0; /* make instantmenu this wide */
+static int dmx = 0, dmy = 0; /* put instamenu at these x and y offsets */
+static int dmw = 0; /* make instamenu this wide */
 static int inputw = 0, promptw, toast = 0, inputonly = 0, passwd = 0, nograb = 0, alttab = 0, tabbed = 0;
 static int lrpad; /* sum of left and right padding */
 static size_t cursor;
@@ -388,7 +388,7 @@ grabfocus(void)
 			return;
 		if (managed) {
 			XTextProperty prop;
-			char *windowtitle = prompt != NULL ? prompt : "instantmenu";
+			char *windowtitle = prompt != NULL ? prompt : "instamenu";
 			Xutf8TextListToTextProperty(dpy, &windowtitle, 1, XUTF8StringStyle, &prop);
 			XSetWMName(dpy, win, &prop);
 			XSetTextProperty(dpy, win, &prop, XInternAtom(dpy, "_NET_WM_NAME", False));
@@ -1283,7 +1283,7 @@ setup(void)
 	char wmclass[20];
 
 	if (!managed)
-		strcpy(wmclass, "instantmenu");
+		strcpy(wmclass, "instamenu");
 	else
 		strcpy(wmclass, "floatmenu");
 
@@ -1474,7 +1474,7 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: instantmenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn font]\n"
+	fputs("usage: instamenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn font]\n"
 	      "             [-m monitor] [-x xoffset] [-y yoffset] [-w width] [-h height]\n"
 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
 	exit(1);
@@ -1489,7 +1489,7 @@ main(int argc, char *argv[])
 	for (i = 1; i < argc; i++)
 		/* these options take no arguments */
 		if (!strcmp(argv[i], "-v")) {      /* prints version information */
-			puts("instantmenu-"VERSION);
+			puts("instamenu-"VERSION);
 			exit(0);
 		} else if (!strcmp(argv[i], "-b")) /* appears at the bottom of the screen */
 			topbar = 0;
@@ -1497,12 +1497,12 @@ main(int argc, char *argv[])
 			fast = 1;
 		else if (!strcmp(argv[i], "-T"))   /* grabs keyboard before reading stdin */
 			toast = atoi(argv[++i]);
-		else if (!strcmp(argv[i], "-ct")) {   /* centers instantmenu on screen */
+		else if (!strcmp(argv[i], "-ct")) {   /* centers instamenu on screen */
 			commented = 1;
 			static char commentprompt[200];
 			prompt = commentprompt + 1;
 			strcpy(prompt, "prompts");
-		} else if (!strcmp(argv[i], "-c"))   /* centers instantmenu on screen */
+		} else if (!strcmp(argv[i], "-c"))   /* centers instamenu on screen */
 			centered = 1;
 		else if (!strcmp(argv[i], "-C"))   /* go to mouse position */
 			followcursor = 1;
@@ -1546,7 +1546,7 @@ main(int argc, char *argv[])
 			dmx = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-y"))   /* window y offset (from bottom up if -b) */
 			dmy = atoi(argv[++i]);
-		else if (!strcmp(argv[i], "-w"))   /* make instantmenu this wide */
+		else if (!strcmp(argv[i], "-w"))   /* make instamenu this wide */
 			dmw = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
 			prompt = argv[++i];
