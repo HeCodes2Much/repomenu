@@ -57,7 +57,7 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
-static int managed = 0;
+static int managed = 1;
 static int commented = 0;
 
 static Atom clip, utf8;
@@ -1526,7 +1526,7 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-A"))   /* alt-tab behaviour */
 			alttab = 1;
 		else if (!strcmp(argv[i], "-wm"))/* display as managed wm window */
-			managed = 1;
+			managed = 0;
 		else if (i + 1 == argc)
 			usage();
 		else if (!strcmp(argv[i], "-rc"))   /* adds prompt to left of input field */
