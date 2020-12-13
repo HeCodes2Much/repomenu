@@ -1021,7 +1021,7 @@ setselection(XEvent *e)
 {
 	struct item *item;
 	XMotionEvent *ev = &e->xmotion;
-	int x = 0, y = 0, h = bh, w;
+	int x = 0, y = 0, h = bh, w, item_num = 0;
 
 	if (ev->window != win)
 		return;
@@ -1040,9 +1040,15 @@ setselection(XEvent *e)
 	if (lines > 0) {
 		/* vertical list: (ctrl)left-click on item */
 		w = mw - x;
-		for (item = curr; item != next; item = item->right) {
-			y += h;
-			if (ev->y >= y && ev->y <= (y + h)) {
+		for (item = curr; item != next; item = item->right) {	
+			if (item_num++ >= lines){
+				item_num = 1;
+				x += w / columns;
+				y = 0;
+			}
+	 		y += h;
+			if (ev->y >= y && ev->y <= (y + h) &&
+				ev->x >= x && ev->x <= (x + w / columns)) {
 				if (sel == item)
 					return;
 				sel = item;
