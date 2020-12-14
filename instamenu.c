@@ -58,8 +58,6 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
-static int managed = 1;
-static int commented = 0;
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -328,7 +326,7 @@ drawmenu(void)
 	if ((curpos += lrpad / 2 - 1) < w) {
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		// disable cursor on password prompt
-		if (!passwd)
+		if (!passwd && !toast)
 			drw_rect(drw, x + curpos, 2 + (bh-fh)/2, 2, fh - 4, 1, 0, 0);
 
 	}
@@ -572,7 +570,7 @@ match(void)
 			appenditem(item, &matches, &matchend);
 		else if (!fstrncmp(tokv[0], item->text, len))
 			appenditem(item, &lprefix, &prefixend);
-		else
+		else if (!exact)
 			appenditem(item, &lsubstr, &substrend);
 	}
 	if (lprefix) {
@@ -609,8 +607,19 @@ insert(const char *str, ssize_t n)
 		return;
 	/* move existing text out of the way, insert new text, and update cursor */
 	memmove(&text[cursor + n], &text[cursor], sizeof text - cursor - MAX(n, 0));
-	if (n > 0)
+	if (n > 0) {
 		memcpy(&text[cursor], str, n);
+        int i;
+        if (smartcase) {
+            for (i = 0; i < strlen(text); i++) {
+                if (text[i] >= 65 && text[i] <= 90) {
+                    smartcase = 0;
+                    fstrncmp = strncmp;
+                    fstrstr = strstr;
+                }
+            }
+        }
+    }
 	cursor += n;
 	match();
 }
@@ -758,6 +767,13 @@ keypress(XKeyEvent *ev)
 		case XK_n: ksym = XK_Down;      break;
 		case XK_p: ksym = XK_Up;        break;
 
+		case XK_v: /* paste clipboard */
+            XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
+                              utf8, utf8, win, CurrentTime);
+            drawmenu();
+            return;
+			break;
+
 		case XK_k: /* delete right */
 			text[cursor] = '\0';
 			match();
@@ -793,13 +809,27 @@ keypress(XKeyEvent *ev)
 		}
 	} else if (ev->state & ShiftMask) {
 		if (alttab) {
-			if (sel && sel->left && (sel = sel->left)->right == curr) {
-				curr = prev;
-				calcoffsets();
-			}
+			if (sel) {
+                if (sel == items) {
+                    struct item *lastitem;
+                    for (lastitem = items; lastitem && lastitem->right; lastitem = lastitem->right);
+                    sel = lastitem;
+                    //curr = lastitem;
+                    calcoffsets();
+                } else {
+                    if (sel->left && (sel = sel->left)->right == curr) {
+                        curr = prev;
+                        calcoffsets();
+                    }
+                }
+            }
 		}
 	} else if (ev->state & Mod1Mask) {
 		switch(ksym) {
+		case XK_F4:
+            cleanup();
+            exit(1);
+        break;
 		case XK_b:
 			movewordedge(-1);
 			goto draw;
@@ -822,14 +852,31 @@ keypress(XKeyEvent *ev)
 		case XK_Tab:
 		tabbed = 1;
 
-		if (sel && sel->right && (sel = sel->right) == next) {
-			curr = next;
-			calcoffsets();
-		}
+		if (sel) {
+
+            struct item *lastitem;
+            for (lastitem = items; lastitem && lastitem->right; lastitem = lastitem->right);
+
+            if (sel == lastitem) {
+                sel = items;
+                curr = items;
+			    calcoffsets();
+            } else {
+                if (sel->right && (sel = sel->right) == next) {
+                    curr = next;
+                    calcoffsets();
+                }
+            }
+        }
 
 		break;
 		default:
 			return;
+		}
+	} else if (ev->state & Mod4Mask) {
+		if (ksym == XK_q) {
+			cleanup();
+			exit(1);
 		}
 	}
 
@@ -1384,7 +1431,7 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 		if (centered) {
-			if (dmw)
+			if (dmw && dmw < info[i].width && info[i].width)
 				mw = dmw;
 			else
 				mw = info[i].width - 100;
@@ -1424,11 +1471,17 @@ setup(void)
 				y = 0;
 
 		} else {
-			if (dmy <= -1)
-				dmy = drw->fonts->h * 1.55;
+			if (dmy <= -1) {
+                if (dmy == -1)
+                    dmy = (wa.height - mh) / 2;
+                else
+                    dmy = drw->fonts->h * 1.55;
+            }
+            if (dmx == -1)
+                dmx = (wa.width  - mw) / 2;
 			x = info[i].x_org + dmx;
 			y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
-			mw = (dmw>0 ? dmw : info[i].width);
+			mw = ((dmw>0 && dmw < info[i].width) ? dmw : info[i].width);
 		}
 
 		if (mh > drw->h - 10) {
@@ -1443,12 +1496,12 @@ setup(void)
 
 		if (x < info[i].x_org)
 			x = info[i].x_org;
-		if (x + mw > drw->w)
-			x = drw->w - mw - border_width*2;
+		if (x + mw > info[i].x_org + info[i].width)
+			x = info[i].x_org + info[i].width - mw - border_width*2;
 		if (fullheight) {
-			y = 32;
-			mh = drw->h - border_width * 2 - 32;
-			lines = (drw->h / lineheight) - 2; 
+			y = info[i].y_org + 32;
+			mh = drw->h - border_width * 2 - (drw->h - info[i].height + 32);
+			lines = (drw->h / lineheight) - 2;
 		} else {
 			if (y + mh > drw->h)
 				y = drw->h - mh;
@@ -1476,7 +1529,7 @@ setup(void)
 		} else {
 			x = dmx;
 			y = topbar ? dmy : wa.height - mh - dmy;
-			mw = (dmw>0 ? dmw : wa.width);
+			mw = ((dmw>0 && dmw < wa.width) ? dmw : wa.width);
 		}
 	}
 
@@ -1525,7 +1578,8 @@ usage(void)
 {
 	fputs("usage: instamenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn font]\n"
 	      "             [-m monitor] [-x xoffset] [-y yoffset] [-w width] [-h height]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
+	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n"
+		  "             [-it initialtext] [-ps preselected]\n", stderr);
 	exit(1);
 }
 
@@ -1544,7 +1598,7 @@ main(int argc, char *argv[])
 			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
 			fast = 1;
-		else if (!strcmp(argv[i], "-T"))   /* grabs keyboard before reading stdin */
+		else if (!strcmp(argv[i], "-T"))   /* launch instamenu in a toast mode that times out after a while */
 			toast = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-ct")) {   /* centers instamenu on screen */
 			commented = 1;
@@ -1555,12 +1609,24 @@ main(int argc, char *argv[])
 			centered = 1;
 		else if (!strcmp(argv[i], "-C"))   /* go to mouse position */
 			followcursor = 1;
+		else if (!strcmp(argv[i], "-S"))   /* confirm using the space key */
+			spaceconfirm = 1;
 		else if (!strcmp(argv[i], "-I"))   /* input only */
 			inputonly = 1;
+		else if (!strcmp(argv[i], "-s")) {
+            /* enable smart case */
+            smartcase = 1;
+			fstrncmp = strncasecmp;
+			fstrstr = cistrstr;
+        }
 		else if (!strcmp(argv[i], "-F"))   /* disables fuzzy matching */
 			/* disables fuzzy matching */
 			fuzzy = 0;
-		else if (!strcmp(argv[i], "-H")) {
+		else if (!strcmp(argv[i], "-E")) {
+			/* enabled exact matching */
+			exact = 1;
+            fuzzy = 0;
+        } else if (!strcmp(argv[i], "-H")) {
 			fullheight = 1;
 		}
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
@@ -1622,9 +1688,18 @@ main(int argc, char *argv[])
 			embed = argv[++i];
 		else if (!strcmp(argv[i], "-bw"))
 			border_width = atoi(argv[++i]); /* border width */
-		else if (!strcmp(argv[i], "-ps"))   /* preselected item */
-			preselected = atoi(argv[++i]);
-		else
+		else if (!strcmp(argv[i], "-ps")) {
+            /* preselected item */
+            if (*argv[i + 1] == '-') {
+			    preselected = atoi(argv[++i] + 1);
+            } else {
+			    preselected = atoi(argv[++i]);
+            }
+        }
+		else if (!strcmp(argv[i], "-it")) {   /* search initial text */
+			const char * text = argv[++i];
+			insert(text, strlen(text));
+		} else
 			usage();
 
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())

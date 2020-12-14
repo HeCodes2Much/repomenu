@@ -34,7 +34,7 @@ clean:
 dist: clean
 	mkdir -p instamenu-$(VERSION)
 	cp LICENSE Makefile README arg.h config.def.h config.mk instamenu.1\
-		drw.h util.h instamenu_path instamenu_run instamenu_smartrun itest.1 $(SRC)\
+		drw.h util.h instamenu_path instamenu_run itest.1 $(SRC)\
 		instamenu-$(VERSION)
 	tar -cf instamenu-$(VERSION).tar instamenu-$(VERSION)
 	gzip instamenu-$(VERSION).tar
@@ -42,12 +42,22 @@ dist: clean
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	cp -f instamenu instamenu_path instamenu_run instamenu_smartrun itest $(DESTDIR)$(PREFIX)/bin
+	cp -f instamenu $(DESTDIR)$(PREFIX)/bin
+	cp -f instamenu_path $(DESTDIR)$(PREFIX)/bin
+	cp -f instamenu_run $(DESTDIR)$(PREFIX)/bin
+	cp -f itest $(DESTDIR)$(PREFIX)/bin
+	cp -f instamenu $(DESTDIR)$(PREFIX)/bin/dmenu
+	cp -f instamenu_path $(DESTDIR)$(PREFIX)/bin/dmenu_path
+	cp -f instamenu_run $(DESTDIR)$(PREFIX)/bin/dmenu_run
+	cp -f itest $(DESTDIR)$(PREFIX)/bin/dtest
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_path
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_run
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_smartrun
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/itest
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_path
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_run
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dtest
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < instamenu.1 > $(DESTDIR)$(MANPREFIX)/man1/instamenu.1
 	sed "s/VERSION/$(VERSION)/g" < itest.1 > $(DESTDIR)$(MANPREFIX)/man1/itest.1
@@ -58,8 +68,11 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/instamenu\
 		$(DESTDIR)$(PREFIX)/bin/instamenu_path\
 		$(DESTDIR)$(PREFIX)/bin/instamenu_run\
-		$(DESTDIR)$(PREFIX)/bin/instamenu_smartrun\
 		$(DESTDIR)$(PREFIX)/bin/itest\
+		$(DESTDIR)$(PREFIX)/bin/dmenu\
+		$(DESTDIR)$(PREFIX)/bin/dmenu_path\
+		$(DESTDIR)$(PREFIX)/bin/dmenu_run\
+		$(DESTDIR)$(PREFIX)/bin/dtest\
 		$(DESTDIR)$(MANPREFIX)/man1/instamenu.1\
 		$(DESTDIR)$(MANPREFIX)/man1/itest.1
 

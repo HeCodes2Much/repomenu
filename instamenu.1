@@ -1,11 +1,9 @@
-.TH instamenu 1 instamenu\-VERSION
+.TH INSTAMENU 1 instamenu\-VERSION
 .SH NAME
-instamenu \- menu for instantOS
+instaMENU \- instant dynamic menu
 .SH SYNOPSIS
 .B instamenu
 .RB [ \-bfivP ]
-.RB [ \-g
-.IR columns ]
 .RB [ \-l
 .IR lines ]
 .RB [ \-m
@@ -24,6 +22,10 @@ instamenu \- menu for instantOS
 .IR color ]
 .RB [ \-w
 .IR windowid ]
+.RB [ \-it
+.IR initialtext ]
+.RB [ \-ps
+.IR preselected ]
 .P
 .BR instamenu_run " ..."
 .SH DESCRIPTION
@@ -35,7 +37,7 @@ matching the tokens in the input.
 .P
 .B instamenu_run
 is a script used by
-.IR instawm (1)
+.IR dwm (1)
 which lists programs in the user's $PATH and runs the result in their $SHELL.
 .SH OPTIONS
 .TP
@@ -52,11 +54,11 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
 .B \-i
 instamenu matches menu items case insensitively.
 .TP
-.BI \-g " columns"
-dmenu lists items in a grid with the given number of columns.
-.TP
 .BI \-l " lines"
 instamenu lists items vertically, with the given number of lines.
+.TP
+.BI \-g " grids"
+instamenu lists items in a grid, with the given number of collums.
 .TP
 .BI \-h " height"
 instamenu uses a menu line of at least 'height' pixels tall, but no less than 8.
@@ -112,6 +114,12 @@ prints version information to stdout, then exits.
 .TP
 .BI \-w " windowid"
 embed into windowid.
+.TP
+.BI \-it " initialtext"
+search initial text.
+.TP
+.BI \-ps " preselected"
+preselected item.
 .SH USAGE
 instamenu is completely controlled by the keyboard.  Items are selected using the
 arrow keys, page up, page down, home, and end.
@@ -222,5 +230,5 @@ Page up
 .B M\-l
 Down
 .SH SEE ALSO
-.IR instawm (1),
+.IR dwm (1),
 .IR itest (1)
