@@ -23,6 +23,7 @@ static int commented = 0;
 static const char *fonts[] = {
 	"Misc Termsyn:size=12",
 	"Siji:size=10",
+	"JoyPixels:size=10",
 	"MaterialIcons:size=10",
 	"xos4 Terminus:size=12"
 };
