@@ -7,12 +7,17 @@ static int followcursor = 0;                    /* -c option; centers dmenu on s
 static int min_width = 500;                    /* minimum width when centered */
 
 static int instant = 0;
+static int spaceconfirm = 0;
 static int fuzzy = 1;
+static int exact = 0;
+static int smartcase = 0;
 static int sely = 0;
+static int managed = 1;
 static int animated = 0;
 static int framecount = 7;
 static int fullheight = 0;
-static unsigned int lineheight = 0;         /* -h option; minimum height of a menu line     */
+static int lineheight = 0;         /* -h option; minimum height of a menu line     */
+static int commented = 0;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
