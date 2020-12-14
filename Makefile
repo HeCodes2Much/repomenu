@@ -48,6 +48,7 @@ install: all
 	cp -f instamenu_emoji $(DESTDIR)$(PREFIX)/bin
 	cp -f instamenu_network $(DESTDIR)$(PREFIX)/bin
 	cp -f itest $(DESTDIR)$(PREFIX)/bin
+	cp -f imenu $(DESTDIR)$(PREFIX)/bin
 	cp -f instamenu $(DESTDIR)$(PREFIX)/bin/dmenu
 	cp -f instamenu_path $(DESTDIR)$(PREFIX)/bin/dmenu_path
 	cp -f instamenu_run $(DESTDIR)$(PREFIX)/bin/dmenu_run
@@ -58,6 +59,7 @@ install: all
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_emoji
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_network
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/itest
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/imenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_path
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_run
@@ -75,6 +77,7 @@ uninstall:
 		$(DESTDIR)$(PREFIX)/bin/instamenu_path\
 		$(DESTDIR)$(PREFIX)/bin/instamenu_run\
 		$(DESTDIR)$(PREFIX)/bin/itest\
+		$(DESTDIR)$(PREFIX)/bin/imenu\
 		$(DESTDIR)$(PREFIX)/bin/dmenu\
 		$(DESTDIR)$(PREFIX)/bin/dmenu_path\
 		$(DESTDIR)$(PREFIX)/bin/dmenu_run\
