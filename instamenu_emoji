@@ -1,0 +1,154 @@
+#!/bin/sh
+
+emoji_list=/usr/share/instamenu/emoji-list
+
+emoji_groups=">>h Which Emoji Group?
+Smileys & Emotion
+People & Body
+Animals & Nature
+Food & Drink
+Travel & Places
+Activities
+Objects
+Symbols
+Flags"
+
+emoji_groups_menu=$(printf "%s\n" "$emoji_groups" | \
+    instamenu -w 600 -c -i -l 24 -p "Selections:")
+
+go_back() {
+    /bin/sh /usr/bin/instamenu_emoji
+}
+
+case "$emoji_groups_menu" in
+    'Smileys & Emotion')
+        emoji_group_items=$(sed <"$emoji_list" -n \
+            '/group: Smileys \& Emotion/,/group: People \& Body/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | instamenu -w 600 -c -i -l 24 \
+            -p "Smileys & Emotion")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'People & Body')
+        emoji_group_items=$(sed <"$emoji_list" -n \
+            '/group: People \& Body/,/group: Animals \& Nature/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | instamenu -w 600 -c -i -l 24 -p "People & Body")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Animals & Nature')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Animals \& Nature/,/group: Food \& Drink/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | \
+            instamenu -w 600 -c -i -l 24 -p "Animals & Nature")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Food & Drink')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Food \& Drink/,/group: Travel \& Places/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | instamenu -w 600 -c -i -l 24 -p "Food & Drink")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Travel & Places')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Travel \& Places/,/group: Activities/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | instamenu -w 600 -c -i -l 24 \
+            -p "Travel & Places")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Activities')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Activities/,/group: Objects/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | \instamenu -w 600 -c -i -l 24 -p "Activities")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Objects')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Objects/,/group: Symbols/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | \
+            instamenu -w 600 -c -i -l 24 -p "Objects")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Symbols')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Symbols/,/group: Flags/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | \instamenu -w 600 -c -i -l 24 -p "Symbols")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+    'Flags')
+        emoji_group_items=$(sed <"$emoji_list" \
+            -n '/group: Flags/,/flag: Zimbabwe/p' | \
+            grep -v '#')
+        emoji_group_menu=$(printf "%s\n" " ◀ Go Back" \
+            "$emoji_group_items" | instamenu -w 600 -c -i -l 24 -p "Flags")
+        if [ "$emoji_group_menu" = " ◀ Go Back" ]; then
+            go_back
+        else
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 xclip -rmlastnl -selection clipboard
+        fi
+    ;;
+esac

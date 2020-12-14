@@ -3,6 +3,7 @@ VERSION = 5.0
 
 # paths
 PREFIX = /usr
+SHAREPREFIX = /usr/share
 MANPREFIX = $(PREFIX)/share/man
 
 X11INC = /usr/X11R6/include
