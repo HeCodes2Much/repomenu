@@ -12,18 +12,20 @@ static int fuzzy = 1;
 static int exact = 0;
 static int smartcase = 0;
 static int sely = 0;
-static int managed = 1;
+static int managed = 0;
 static int animated = 0;
 static int framecount = 7;
 static int fullheight = 0;
-static int lineheight = 0;         /* -h option; minimum height of a menu line     */
+static unsigned int lineheight = 0;         /* -h option; minimum height of a menu line     */
 static int commented = 0;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
 	"Misc Termsyn:size=12",
+	"Cantarell-Regular:size=12", 
+	"Fira Code Nerd Font:size=14", 
 	"Siji:size=10",
-	"JoyPixels:size=10",
+	"JoyPixels:pixelsize=20:antialias=true:autohint=true",
 	"MaterialIcons:size=10",
 	"xos4 Terminus:size=12"
 };

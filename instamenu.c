@@ -1473,12 +1473,12 @@ setup(void)
 		} else {
 			if (dmy <= -1) {
                 if (dmy == -1)
-                    dmy = (wa.height - mh) / 2;
+                    dmy = (info[i].height - mh) / 2;
                 else
                     dmy = drw->fonts->h * 1.55;
             }
             if (dmx == -1)
-                dmx = (wa.width  - mw) / 2;
+                dmx = (info[i].width  - mw) / 2;
 			x = info[i].x_org + dmx;
 			y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
 			mw = ((dmw>0 && dmw < info[i].width) ? dmw : info[i].width);
@@ -1655,14 +1655,15 @@ main(int argc, char *argv[])
 		} else if (!strcmp(argv[i], "-l")) { /* number of lines in grid */
 			lines = atoi(argv[++i]);
 			if (columns == 0) columns = 1;
-		} else if (!strcmp(argv[i], "-m"))
-			mon = atoi(argv[++i]);
+		}
 		else if (!strcmp(argv[i], "-x"))   /* window x offset */
 			dmx = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-y"))   /* window y offset (from bottom up if -b) */
 			dmy = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-w"))   /* make instamenu this wide */
 			dmw = atoi(argv[++i]);
+		else if (!strcmp(argv[i], "-m"))   /* select monitor */
+			mon = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-p"))   /* adds prompt to left of input field */
 			prompt = argv[++i];
 		else if (!strcmp(argv[i], "-q"))   /* adds prompt to left of input field */
