@@ -1,19 +1,10 @@
 #!/bin/bash
 
 ################################################
-## build menus and GUIs with just instantMENU ##
+## build menus and GUIs with just instaMENU ##
 ################################################
 
-# needs instamenu, fzf and dialog
-
-if [ "$1" = "cli" ]; then
-    shift 1
-    USECLIMENU="True"
-fi
-
-climenu() {
-    [ -e /tmp/climenu ] || [ -n "$USECLIMENU" ]
-}
+# needs instamenu
 
 echoerr() {
     echo "$@" 1>&2
@@ -32,32 +23,12 @@ case "$1" in
 
     unset ANSWER
     while [ -z "$ANSWER" ]; do
-        if ! climenu; then
-            if ! [ ${#2} -ge 30 ]; then
-                ANSWER=$(echo "$YESCOLOR
+        if ! [ ${#2} -ge 30 ]; then
+            ANSWER=$(echo "$YESCOLOR 
 $NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100 -p "${2:-confirm} ")
-            else
-                ANSWER=$(echo "$YESCOLOR
-$NOCOLOR" | instamenu -bw 4 -c -l 100 -p "${2:-confirm} ")
-            fi
         else
-            #dialog confirm promt that returns exit status
-
-            confirm() {
-                DIATEXT=${1:-are you sure about that?}
-                dialog --yesno "$DIATEXT" 700 600
-            }
-
-            if confirm "$2"; then
-                ANSWER="yes"
-            else
-                ANSWER="no"
-            fi
-        fi
-
-        if [ -z "$ANSWER" ] && [ -n "$IMENUACCEPTEMPTY" ]; then
-            echo "empty"
-            exit 2
+            ANSWER=$(echo "$YESCOLOR
+$NOCOLOR" | instamenu -bw 4 -c -l 100 -p "${2:-confirm} ")
         fi
 
     done
@@ -86,19 +57,11 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -p "${2:-confirm} ")
     echo "$PSITEM"
     unset ANSWER
     while [ -z "$ANSWER" ]; do
-        if ! climenu; then
-            while ! grep -Eq '^(:gyes|:rno|forcequit)$' <<<"$ANSWER"; do
-                ANSWER=$(echo "$PROMPT" | sed 's/^$/> /g' | sed 's/^yes$/:gyes/g' |
-                    sed 's/^no$/:rno/g' | instamenu -ps "$PSITEM" -bw 4 -c -l 100 -q 'confirmation')
-                checkexit
-            done
-        else
-            while ! grep -Eq '^(yes|no|forcequit)$' <<<"$ANSWER"; do
-                PROMPTHEIGHT=$(wc -l <<<"$PROMPT")
-                ANSWER=$(echo "$PROMPT" | sed 's/^:.//g' | fzf --header-lines "$((PROMPTHEIGHT - 2))" --layout reverse --prompt "? ")
-                checkexit
-            done
-        fi
+        while ! grep -Eq '^(:gyes|:rno|forcequit)$' <<<"$ANSWER"; do
+            ANSWER=$(echo "$PROMPT" | sed 's/^$/> /g' | sed 's/^yes$/:gyes/g' |
+                sed 's/^no$/:rno/g' | instamenu -ps "$PSITEM" -bw 4 -c -l 100 -q 'confirmation')
+            checkexit
+        done
 
     done
 
@@ -110,63 +73,22 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -p "${2:-confirm} ")
 
     ;;
 -w) # waiting thingy
-    if ! climenu; then
-        echo "> $2
+    echo "> $2
 :g OK" | instamenu -h -1 -l 20 -c -bw 4 -w -1 -q "loading..." &
-    else
-        echo "loading...
-$2" | imenu -M
-    fi
     ;;
 -e) # error message
-    if ! climenu; then
-        echo "> $2
+    echo "> $2
 :r OK" | instamenu -h -1 -l 20 -c -bw 4 -w -1 -q "error"
-
-    else
-        echo "Error
-$2" | imenu -M
-    fi
     ;;
 
 -P) # password dialog
-    if ! climenu; then
-        echo "" | instamenu -bw 4 -p "${2:-enter password}" -P -c -w 800
-    else
-        passwordbox() {
-            unset user_input
-            while [ -z "$user_input" ]; do
-                #statements
-                user_input=$(
-                    dialog --passwordbox "${1:-enter password}" 700 700 \
-                        3>&1 1>&2 2>&3 3>&-
-                )
-            done
-            echo "$user_input"
-        }
-        passwordbox "${2:-enter password}"
-    fi
+    echo "" | instamenu -bw 4 -p "${2:-enter password}" -P -c -w 800
     ;;
 -i) # input dialog
-    if ! climenu; then
-        if [ -z "$4" ]; then
-            echo "" | instamenu -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
-        else
-            echo "" | instamenu -it "$4" -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
-        fi
+    if [ -z "$4" ]; then
+        echo "" | instamenu -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
     else
-        textbox() {
-            unset user_input
-            while [ -z "$user_input" ]; do
-                #statements
-                user_input=$(
-                    dialog --inputbox "${1:-enter text}" 700 700 \
-                        3>&1 1>&2 2>&3 3>&-
-                )
-            done
-            echo "$user_input"
-        }
-        textbox "${2:-enter text}"
+        echo "" | instamenu -it "$4" -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
     fi
     ;;
 -m) # message
@@ -176,11 +98,7 @@ $2" | imenu -M
 OK"
     PROMPTHEIGHT="$(wc -l <<<"$PROMPT")"
 
-    if ! climenu; then
-        echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
-    else
-        echo "$PROMPT" | fzf --layout reverse --header-lines "$((PROMPTHEIGHT - 1))" --prompt "- "
-    fi
+    echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
     ;;
 -M) # message from stdin
     PROMPT="$(sed 's/^/> /g' </dev/stdin)"
@@ -189,14 +107,10 @@ OK"
 OK"
     PROMPTHEIGHT=$(wc -l <<<"$PROMPT")
 
-    if ! climenu; then
-        if [ "$PROMPTHEIGHT" -lt 6 ]; then
-            echo "$PROMPT" | instamenu -bw 4 -h -1 -l 20 -c -q "$2"
-        else
-            echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
-        fi
+    if [ "$PROMPTHEIGHT" -lt 6 ]; then
+        echo "$PROMPT" | instamenu -bw 4 -h -1 -l 20 -c -q "$2"
     else
-        echo "$PROMPT" | fzf --layout reverse --header-lines "$((PROMPTHEIGHT - 1))" --prompt "- "
+        echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
     fi
     ;;
 
@@ -220,19 +134,10 @@ OK"
     fi
 
     while ! grep -q .. <<<"$ANSWER"; do
-        if ! climenu; then
-            if [ -z "$ICONMODE" ]; then
-                ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -bw 4 -p "${2:-choose}" -c -l 20)
-            else
-                ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -h -1 -w -1 -bw 4 -p "${2:-choose}" -c -l 20)
-            fi
+        if [ -z "$ICONMODE" ]; then
+            ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -bw 4 -p "${2:-choose}" -c -l 20)
         else
-            if grep -q '^>' <<<"$ASTDIN"; then
-                HEADERLINES=$(echo "$ASTDIN" | grep -c '^>')
-                ANSWER="$(echo "$ASTDIN" | fzf --layout reverse --header-lines "$HEADERLINES" --prompt "${2:-choose}")"
-            else
-                ANSWER="$(echo "$ASTDIN" | tac | fzf --prompt "${2:-choose}")"
-            fi
+            ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -h -1 -w -1 -bw 4 -p "${2:-choose}" -c -l 20)
         fi
         if [ -z "$ANSWER" ] && [ -n "$IMENUACCEPTEMPTY" ]; then
             exit 0
@@ -313,20 +218,12 @@ OK"
     }
 
     itemmenu() {
-        if ! climenu; then
-            echo ":b move to top
+        echo ":b move to top
 :b move up
 :b back
 :b move down
 :b move to the bottom
 :r remove" | imenu -l -i -s 2 "$1"
-        else
-            echo "move to top
-move up
-back
-move down
-move to the bottom" | imenu -l "$1"
-        fi
     }
 
     if [ -n "$2" ]; then
