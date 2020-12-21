@@ -1697,7 +1697,7 @@ main(int argc, char *argv[])
 			    preselected = atoi(argv[++i]);
             }
         }
-		else if (!strcmp(argv[i], "-it")) {   /* search initial text */
+		else if (!strcmp(argv[i], "-it")) {   /* initial input text */
 			const char * text = argv[++i];
 			insert(text, strlen(text));
 		} else
