@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# instamenu-systemctl-user
+# Use systemctl --user from instamenu. Useful in tiling wms.
+
+unset opts
+unset service
+unset unit
+unset cmd
+
+# make sure systemd is running
+initsys=$(cat /proc/1/comm)
+[[ "$initsys" == "systemd" ]] || exit 100
+
+##
+# Consistent instamenu commands, specific colors for instamenu.
+# params: message, print, ...
+# message: To be displayed as the prompt for instamenu
+# print:   The words to populate the list for instamenu
+##
+instamenucmd() {
+  local mesg=$1
+  shift
+  local printing=("$@")
+  printf "%s\n" "${printing[@]}" | instamenu -c -w 700 -l 10\
+    -p "$mesg"
+}
+
+# Specify the options you want to see. `status` is treated specially and should
+# not be removed from the array.
+opts=("start"
+      "run"
+      "stop"
+      "restart" "try-restart" "reload-or-restart"
+      "status"
+      "list-unit-files")
+
+# This gets the list of units, limited to services and sockets (What is
+# mostly manipulated with systemctl --user)
+# Use a param to limit this, something like "loaded" or "loaded active"
+# (see below)
+get_systemctl_list() {
+  printf -- "%s" "$(systemctl --no-legend --full --user --type=service,socket --all list-units | sed -n "s/${1}.*//p")"
+}
+get_systemctl_files() {
+  printf -- "%s" "$(systemctl --no-legend --full --user --type=service,socket --all list-unit-files | sed -n "s/ .*//p")"
+}
+get_path_files() {
+  printf -- "%s" "$(instamenu_path)"
+}
+
+# Depending on the case, we want to filter by a specific state of unit.
+# start, status: Get all units that are loaded
+# stop, the *restarts: Get all units that are already active
+# something else: Get all the files that are loaded
+find_services () {
+  local action="$1"
+  local orig_list=()
+  case $action in
+    start)
+      orig_list=($(get_systemctl_files ) )
+      ;;
+    status)
+      orig_list=($(get_systemctl_list "loaded") )
+      ;;
+    stop|*restart)
+      orig_list=($(get_systemctl_list "loaded *active") )
+      ;;
+    run)
+      orig_list=($(get_path_files) )
+      ;;
+    *)
+      orig_list=($(get_systemctl_files ) )
+      ;;
+  esac
+  printf -- "%s " ${orig_list[@]/.service/}
+}
+
+# Get the command to be run from the `opts` list
+cmd="$(instamenucmd "Action:" "${opts[@]}")"
+
+[[ -z $cmd ]] && exit 1
+
+# Get the unit that is going to be run by systemctl. Can be a list of units,
+# just as running it from the command line, though instamenu will only display the
+# first one.
+service=($(find_services "$cmd"))
+unit="$(instamenucmd "systemctl --user $cmd" "${service[@]}")"
+
+[[ -z $unit ]] && exit 2
+
+# The actual running of commands. `status`, as stated above, is treated
+# specially, and will open a alacritty window displaying the status output,
+# otherwise we just run systemctl --user with the specified command and unit.
+if [[ $cmd == "status" ]]; then
+  alacritty --title "instamenu-systemctl-user" -e /usr/bin/bash -c "systemctl --user $cmd $unit; read "
+elif [[ $cmd == "run" ]]; then
+  systemd-run --user --unit="run-${unit}" "$unit"
+else
+  systemctl --user "$cmd" "$unit"
+fi
