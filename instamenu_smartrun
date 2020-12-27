@@ -1,14 +1,10 @@
 #!/bin/sh
 
 asksetting() {
-    echo ">>h Run a App
-instamenu_editor
-instamenu_emoji
-instamenu_mount
-instamenu_network
-instamenu_path
-instamenu_run
-instamenu_systemctl_user" | instamenu -c -l 10 -w -400 -i -h -1 -bw 4 -q "${1:-Search...}"
+	prefix="/bin/"
+	options=$(printf '%s\n' ${PATH//:/\/* } | grep "instamenu_" | sed '/smartrun/d' | grep -oP "^$prefix\K.*")
+    echo ">>h Select App to run
+$options" | instamenu -c -l 15 -w -400 -i -h -1 -bw 4 -q "${1:-Search...}"
 }
 
 LOOPSETTING="true"
@@ -17,8 +13,8 @@ while [ -n "$LOOPSETTING" ]; do
     unset LOOPSETTING
 	if [ "$choice" ]; then
 		$choice
+		exit
 	else 
-		echo "Program terminated." && exit 1 
+		echo "Program terminated." && exit
 	fi
 done
-
