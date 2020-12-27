@@ -1,0 +1,42 @@
+#!/bin/sh
+
+asksetting() {
+    echo ">>h Run a App
+instamenu_emoji
+instamenu_mount
+instamenu_network
+instamenu_path
+instamenu_run
+instamenu_systemctl_user" | instamenu -c -l 10 -w -400 -i -h -1 -bw 4 -q "${1:-Search...}"
+}
+
+LOOPSETTING="true"
+while [ -n "$LOOPSETTING" ]; do
+    choice="$(asksetting)"
+    unset LOOPSETTING
+    case "$choice" in
+		instamenu_emoji)
+			choice="instamenu_emoji"
+		;;
+        instamenu_mount)
+			choice="instamenu_mount"
+		;;
+        instamenu_network)
+			choice="instamenu_network"
+		;;
+        instamenu_path)
+			choice="instamenu_path"
+		;;
+        instamenu_run)
+			choice="instamenu_run"
+		;;
+        instamenu_systemctl_user)
+			choice="instamenu_systemctl_user"
+		;;
+		*)
+			echo "Program terminated." && exit 1
+		;;
+	esac
+	"$choice"
+done
+

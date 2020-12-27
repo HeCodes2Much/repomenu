@@ -1,0 +1,18 @@
+#!/bin/sh
+asksetting() {
+	options=$(ls $HOME/.config/instamenu/scripts/)
+
+    echo ">>h Work on which script
+$options" | instamenu -c -l 10 -w -400 -i -h -1 -bw 4 -q "${1:-Search...}"
+}
+
+LOOPSETTING="true"
+while [ -n "$LOOPSETTING" ]; do
+	FILE="$HOME/.config/instamenu/scripts/$(asksetting)"
+    unset LOOPSETTING
+	if [ -f "$FILE" ]; then
+		$EDITOR $FILE
+	else 
+		echo "Program terminated." && exit 1
+	fi
+done

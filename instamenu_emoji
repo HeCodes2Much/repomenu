@@ -32,6 +32,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'People & Body')
@@ -45,6 +48,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Animals & Nature')
@@ -58,6 +64,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Food & Drink')
@@ -71,6 +80,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Travel & Places')
@@ -84,6 +96,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Activities')
@@ -97,6 +112,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Objects')
@@ -110,6 +128,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Symbols')
@@ -123,6 +144,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
     'Flags')
@@ -136,6 +160,9 @@ case "$emoji_groups_menu" in
             printf "%s" "$emoji_group_menu" | \
                  awk '{print $1}' | \
                  xclip -rmlastnl -selection clipboard
+            printf "%s" "$emoji_group_menu" | \
+                 awk '{print $1}' | \
+                 while read chosen; do notify-send "'$chosen' copied to clipboard."; done
         fi
     ;;
 esac

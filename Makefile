@@ -43,10 +43,7 @@ dist: clean
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f instamenu $(DESTDIR)$(PREFIX)/bin
-	cp -f instamenu_path $(DESTDIR)$(PREFIX)/bin
-	cp -f instamenu_run $(DESTDIR)$(PREFIX)/bin
-	cp -f instamenu_emoji $(DESTDIR)$(PREFIX)/bin
-	cp -f instamenu_network $(DESTDIR)$(PREFIX)/bin
+	cp -f instamenu_* $(DESTDIR)$(PREFIX)/bin
 	cp -f itest $(DESTDIR)$(PREFIX)/bin
 	cp -f imenu $(DESTDIR)$(PREFIX)/bin
 	cp -f instamenu $(DESTDIR)$(PREFIX)/bin/dmenu
@@ -55,9 +52,6 @@ install: all
 	cp -f itest $(DESTDIR)$(PREFIX)/bin/dtest
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_path
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_run
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_emoji
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_network
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/itest
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/imenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
@@ -74,8 +68,7 @@ install: all
 
 uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/bin/instamenu\
-		$(DESTDIR)$(PREFIX)/bin/instamenu_path\
-		$(DESTDIR)$(PREFIX)/bin/instamenu_run\
+		$(DESTDIR)$(PREFIX)/bin/instamenu_*\
 		$(DESTDIR)$(PREFIX)/bin/itest\
 		$(DESTDIR)$(PREFIX)/bin/imenu\
 		$(DESTDIR)$(PREFIX)/bin/dmenu\

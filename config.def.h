@@ -12,7 +12,7 @@ static int fuzzy = 1;
 static int exact = 0;
 static int smartcase = 0;
 static int sely = 0;
-static int managed = 0;
+static int managed = 1;
 static int animated = 0;
 static int framecount = 7;
 static int fullheight = 0;
@@ -34,7 +34,7 @@ static const char *prompt      = NULL;      /* -p  option; prompt to the left of
 static const char *searchtext      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *leftcmd      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *rightcmd      = NULL;      /* -p  option; prompt to the left of input field */
-static const char *colors[SchemeLast][9] = {
+static const char *colors[SchemeLast][12] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#A4ABAA", "#292F34", "#292F34" },
 	[SchemeFade] = { "#575E70", "#292F34", "#3E485B" },
@@ -62,4 +62,4 @@ static const char worddelimiters[] = " ";
 static unsigned int preselected = 0;
 
 /* Size of the window border */
-static unsigned int border_width = 0;
+static unsigned int border_width = 4;
