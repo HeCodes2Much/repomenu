@@ -24,11 +24,19 @@ case "$1" in
     unset ANSWER
     while [ -z "$ANSWER" ]; do
         if ! [ ${#2} -ge 30 ]; then
-            ANSWER=$(echo "$YESCOLOR 
-$NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100 -p "${2:-confirm} ")
+            ANSWER=$(echo ">>h ${2:-confirm}
+$YESCOLOR 
+$NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100)
         else
-            ANSWER=$(echo "$YESCOLOR
-$NOCOLOR" | instamenu -bw 4 -c -l 100 -p "${2:-confirm} ")
+            if ! [ ${#2} -ge 60 ]; then
+                ANSWER=$(echo ">>h ${2:-confirm}
+$YESCOLOR 
+$NOCOLOR" | instamenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
+            else
+                ANSWER=$(echo ">>h ${2:-confirm}
+$YESCOLOR
+$NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
+            fi
         fi
 
     done
