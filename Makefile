@@ -51,7 +51,7 @@ install: all
 	cp -f instamenu_run $(DESTDIR)$(PREFIX)/bin/dmenu_run
 	cp -f itest $(DESTDIR)$(PREFIX)/bin/dtest
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_path
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/instamenu_*
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/itest
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/imenu
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
@@ -59,7 +59,7 @@ install: all
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_run
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dtest
 	mkdir -p $(DESTDIR)$(SHAREPREFIX)/instamenu
-	cp -f emoji-list $(DESTDIR)$(SHAREPREFIX)/instamenu
+
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < instamenu.1 > $(DESTDIR)$(MANPREFIX)/man1/instamenu.1
 	sed "s/VERSION/$(VERSION)/g" < itest.1 > $(DESTDIR)$(MANPREFIX)/man1/itest.1
