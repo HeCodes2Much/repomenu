@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ################################################
 ## build menus and GUIs with just instaMENU ##
