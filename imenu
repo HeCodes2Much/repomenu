@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# path:       /usr/bin/imenu
+# author:     TheCynicalTeam [wayne6324@gmail.com]
+# github:     https://github.com/TheCynicalTeam/instamenu
+# date:       2021-01-03 12:34:47.440579
+
 ################################################
 ## build menus and GUIs with just instaMENU ##
 ################################################
