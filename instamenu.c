@@ -1660,7 +1660,7 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-A"))   /* alt-tab behaviour */
 			alttab = 1;
 		else if (!strcmp(argv[i], "-wm"))/* display as managed wm window */
-			managed = 0;
+			managed = 1;
 		else if (i + 1 == argc)
 			usage();
 		else if (!strcmp(argv[i], "-rc"))   /* adds prompt to left of input field */
