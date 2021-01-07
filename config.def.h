@@ -22,8 +22,8 @@ static int commented = 0;
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
 	"Misc Termsyn:size=12",
-	"Cantarell-Regular:size=12", 
-	"FiraCode Nerd Font:size=14", 
+	"Cantarell-Regular:size=12",
+	"FiraCode Nerd Font:size=14",
 	"Siji:size=14",
 	"JoyPixels:pixelsize=20:antialias=true:autohint=true",
 	"MaterialIcons:size=10",
