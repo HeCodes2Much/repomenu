@@ -36,16 +36,16 @@ static const char *leftcmd      = NULL;      /* -p  option; prompt to the left o
 static const char *rightcmd      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][12] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#A4ABAA", "#292F34", "#292F34" },
-	[SchemeFade] = { "#575E70", "#292F34", "#3E485B" },
+	[SchemeNorm] = { "#A4ABAA", "#282a36", "#282a36" },
+	[SchemeFade] = { "#575E70", "#282a36", "#3E485B" },
 	[SchemeHighlight] = { "#ffffff", "#596377", "#3E485B" },
 	[SchemeHover] = { "#ffffff", "#353D4B", "#3E485B" },
-	[SchemeSel] = { "#ffffff", "#2EB398", "#2EB398" },
-	[SchemeOut] = { "#000000", "#2EB398", "#2EB398" },
-	[SchemeMid] = { "#A4ABAA", "#1E2429", "#1E2429" },
-	[SchemeGreen] = { "#ffffff", "#52E067", "#35CA4B" },
-	[SchemeRed] = { "#ffffff", "#E0527E", "#CA3563" },
-	[SchemeYellow] = { "#ffffff", "#E09F52", "#CA8635" },
+	[SchemeSel] = { "#ffffff", "#6272a4", "#6272a4" },
+	[SchemeOut] = { "#000000", "#6272a4", "#6272a4" },
+	[SchemeMid] = { "#A4ABAA", "#21222c", "#21222c" },
+	[SchemeGreen] = { "#ffffff", "#52E067", "#50fa7b" },
+	[SchemeRed] = { "#ffffff", "#E0527E", "#ff5555" },
+	[SchemeYellow] = { "#ffffff", "#E09F52", "#f1fa8c" },
 };
 
 /* -l and -g options; controls number of lines and columns in grid if > 0 */
