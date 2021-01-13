@@ -53,28 +53,33 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
     fi
     ;;
 -C) # confirmation dialog with prompt from stdin
-    PROMPT="$(sed 's/^/> /g' </dev/stdin)"
-    PROMPT="$PROMPT
-> 
-:gyes
-:rno"
+    PROMPT="$(</dev/stdin)"
+    if [ "$2" = "-i" ]; then
+        shift 1
+        YESCOLOR=":ryes"
+        NOCOLOR=":gno"
+    else
+        YESCOLOR=":gyes"
+        NOCOLOR=":rno"
+    fi
 
-    PSITEM="$(($(wc -l <<<"$PROMPT") - 2))"
-
-    checkexit() {
-        if [ -z "$ANSWER" ] && [ -n "$IMENUACCEPTEMPTY" ]; then
-            echo "empty"
-            exit 2
-        fi
-    }
-    echo "$PSITEM"
     unset ANSWER
     while [ -z "$ANSWER" ]; do
-        while ! grep -Eq '^(:gyes|:rno|forcequit)$' <<<"$ANSWER"; do
-            ANSWER=$(echo "$PROMPT" | sed 's/^$/> /g' | sed 's/^yes$/:gyes/g' |
-                sed 's/^no$/:rno/g' | instamenu -ps "$PSITEM" -bw 4 -c -l 100 -q 'confirmation')
-            checkexit
-        done
+        if ! [ ${#2} -ge 30 ]; then
+            ANSWER=$(echo ">>h ${PROMPT:-confirm}
+$YESCOLOR
+$NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100)
+        else
+            if ! [ ${#2} -ge 60 ]; then
+                ANSWER=$(echo ">>h ${PROMPT:-confirm}
+$YESCOLOR
+$NOCOLOR" | instamenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
+            else
+                ANSWER=$(echo ">>h ${PROMPT:-confirm}
+$YESCOLOR
+$NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
+            fi
+        fi
 
     done
 
