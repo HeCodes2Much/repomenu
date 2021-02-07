@@ -1505,7 +1505,6 @@ setup(void)
 
 		if (mh > drw->h - 10) {
 			mh = drw->h - border_width * 2 - 10;
-			fprintf(stderr, "lineheight %d", lineheight);
 			lines = (drw->h / (lineheight ? lineheight : bh)) - 1; 
 		}
 
@@ -1554,6 +1553,23 @@ setup(void)
 
 	inputw = MIN(inputw, mw/3);
 	match();
+
+	if (prematch && matches && strlen(text) > 0) {
+		struct item *tmpmatch;
+		struct item *item;
+		tmpmatch = matches;
+		insert(NULL, 0 - cursor);
+		sel = tmpmatch;
+		if (next) {
+			for (item = next; item->right; item = item->right) {
+			    if (item == sel) {
+				curr = sel;
+				break;
+			    }
+			}
+		}
+		calcoffsets();
+	}
 
 	/* create menu window */
 	swa.override_redirect = managed ? False : True;
@@ -1642,6 +1658,8 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-F"))   /* disables fuzzy matching */
 			/* disables fuzzy matching */
 			fuzzy = 0;
+		else if (!strcmp(argv[i], "-pm"))   /* enables pre matching */
+			prematch = 1;
 		else if (!strcmp(argv[i], "-E")) {
 			/* enabled exact matching */
 			exact = 1;
