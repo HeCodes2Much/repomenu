@@ -41,8 +41,17 @@ used as a drop-in replacement but has a lot of extra features as well.
 .B \-b
 instamenu appears at the bottom of the screen.
 .TP
+.B \-S
+confirm using space
+.TP
 .B \-c
 instamenu will appear at the position of the mouse cursor
+.TP
+.B \-H
+Max out height to fit monitor
+.TP
+.B \-wm
+let instamenu be managed by the WM
 .TP
 .B \-f
 instamenu grabs the keyboard before reading stdin if not reading from a tty. This
@@ -50,6 +59,15 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
 .TP
 .B \-i
 instamenu matches menu items case insensitively.
+.TP
+.B \-P
+replace input indicator with dots
+.TP
+.B \-F
+Disable fuzzy matching
+.TP
+.B \-A
+Enable alt-tab behaviour
 .TP
 .BI \-l " lines"
 instamenu lists items vertically, with the given number of lines.
@@ -63,8 +81,17 @@ instamenu uses a menu line of at least 'height' pixels tall, but no less than 8.
 BI \-bw " borderwidth"
 add a border around instamenu with width n
 .TP
+.BI \-rc " command"
+run command on shift + right
+.TP
+.BI \-lc " command"
+run command on shift + left
+.TP
+.BI \-a " duration"
+set animation duration in frames
+.TP
 .B \-n
-instamenu instantly selects if only one match.
+instamenu instantly selects if there is only one match.
 .TP
 .BI \-x " xoffset"
 instamenu is placed at this offset measured from the left side of the monitor.
@@ -93,6 +120,9 @@ from 0.
 .TP
 .BI \-p " prompt"
 defines the prompt to be displayed to the left of the input field.
+.TP
+.BI \-G
+disables grabbing the keyboard
 .TP
 .BI \-fn " font"
 defines the font or font set used.
