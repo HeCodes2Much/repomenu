@@ -92,6 +92,7 @@ static const char *xresscheme[SchemeLast] = {
     [SchemeHover] = "hover",
     [SchemeSel] = "sel",
     [SchemeOut] = "out",
+    [SchemeMid] = "mid",
     [SchemeGreen] = "green",
     [SchemeRed] = "red",
     [SchemeYellow] = "yellow",
