@@ -46,6 +46,8 @@ enum {
   SchemeMid,
   SchemeGreen,
   SchemeYellow,
+  SchemeBlue,
+  SchemePurple,
   SchemeRed,
   SchemeLast
 }; /* color schemes */
@@ -96,6 +98,8 @@ static const char *xresscheme[SchemeLast] = {
     [SchemeGreen] = "green",
     [SchemeRed] = "red",
     [SchemeYellow] = "yellow",
+    [SchemeBlue] = "blue",
+    [SchemePurple] = "purple",
 };
 static const char *xrescolortype[ColLast] = {
     "fg",
@@ -186,10 +190,16 @@ static int drawitem(struct item *item, int x, int y, int w) {
       case 'y':
         drw_setscheme(drw, scheme[SchemeYellow]);
         break;
+      case 'b':
+        drw_setscheme(drw, scheme[SchemeBlue]);
+        break;
+      case 'p':
+        drw_setscheme(drw, scheme[SchemePurple]);
+        break;
       case 'h':
         drw_setscheme(drw, scheme[SchemeHighlight]);
         break;
-      case 'b':
+      case 's':
         drw_setscheme(drw, scheme[SchemeSel]);
         break;
       default:
@@ -216,6 +226,15 @@ static int drawitem(struct item *item, int x, int y, int w) {
         drw_setscheme(drw, scheme[SchemeYellow]);
         break;
       case 'b':
+        drw_setscheme(drw, scheme[SchemeBlue]);
+        break;
+      case 'p':
+        drw_setscheme(drw, scheme[SchemePurple]);
+        break;
+      case 'h':
+        drw_setscheme(drw, scheme[SchemeHighlight]);
+        break;
+      case 's':
         drw_setscheme(drw, scheme[SchemeSel]);
         break;
       default:
@@ -703,6 +722,15 @@ void animatesel(struct item *item) {
     drw_setscheme(drw, scheme[SchemeYellow]);
     break;
   case 'b':
+    drw_setscheme(drw, scheme[SchemeBlue]);
+    break;
+  case 'p':
+    drw_setscheme(drw, scheme[SchemePurple]);
+    break;
+  case 'h':
+    drw_setscheme(drw, scheme[SchemeHighlight]);
+    break;
+  case 's':
     drw_setscheme(drw, scheme[SchemeSel]);
     break;
   default:

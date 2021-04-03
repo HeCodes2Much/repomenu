@@ -6,6 +6,15 @@
 
 instamenu is a simple menu forked from dmenu
 
+## Installation from source
+
+```sh
+git clone https://github.com/The-Repo-Club/instamenu
+cd instamenu
+make
+sudo make install
+```
+
 ## Features
 - alt-tab functionality
 - mouse support

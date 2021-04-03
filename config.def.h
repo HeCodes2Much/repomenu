@@ -48,9 +48,11 @@ static const char *colors[SchemeLast][12] = {
     [SchemeSel] = {"#ffffff", "#6272a4", "#6272a4"},
     [SchemeOut] = {"#000000", "#6272a4", "#6272a4"},
     [SchemeMid] = {"#A4ABAA", "#21222c", "#21222c"},
-    [SchemeGreen] = {"#ffffff", "#52E067", "#50fa7b"},
-    [SchemeRed] = {"#ffffff", "#E0527E", "#ff5555"},
-    [SchemeYellow] = {"#ffffff", "#E09F52", "#f1fa8c"},
+    [SchemeGreen] = {"#ffffff", "#52E067", "#41b252"},
+    [SchemeRed] = {"#ffffff", "#e05252", "#c24343"},
+    [SchemeYellow] = {"#ffffff", "#e0c452", "#bca33f"},
+    [SchemeBlue] = {"#ffffff", "#5280e0", "#3a62b3"},
+    [SchemePurple] = {"#ffffff", "#9952e0", "#7439b0"},
 };
 
 /* -l and -g options; controls number of lines and columns in grid if > 0 */
