@@ -17,8 +17,7 @@ static int managed = 0;
 static int animated = 0;
 static int framecount = 7;
 static int fullheight = 0;
-static unsigned int lineheight =
-    0; /* -h option; minimum height of a menu line     */
+static unsigned int lineheight = 0; /* -h option; minimum height of a menu line     */
 static int commented = 0;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
