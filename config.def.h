@@ -40,12 +40,12 @@ static const char *rightcmd =
     NULL; /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][12] = {
     /*     fg         bg       */
-    [SchemeNorm] = {"#A4ABAA", "#282a36", "#282a36"},
+    [SchemeNorm] = {"#bd93f9", "#282a36", "#282a36"},
     [SchemeFade] = {"#575E70", "#282a36", "#3E485B"},
-    [SchemeHighlight] = {"#ffffff", "#596377", "#3E485B"},
+    [SchemeHighlight] = {"#f1fa8c", "#596377", "#3E485B"},
     [SchemeHover] = {"#ffffff", "#353D4B", "#3E485B"},
-    [SchemeSel] = {"#ffffff", "#6272a4", "#6272a4"},
-    [SchemeOut] = {"#000000", "#6272a4", "#6272a4"},
+    [SchemeSel] = {"#f8f8f2", "#6272a4", "#6272a4"},
+    [SchemeOut] = {"#44475a", "#6272a4", "#6272a4"},
     [SchemeMid] = {"#A4ABAA", "#21222c", "#21222c"},
     [SchemeGreen] = {"#ffffff", "#52E067", "#41b252"},
     [SchemeRed] = {"#ffffff", "#e05252", "#c24343"},
