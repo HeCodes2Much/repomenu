@@ -22,13 +22,11 @@ static int commented = 0;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-    "Misc Termsyn:size=12",
-    "Cantarell-Regular:size=12",
-    "FiraCode Nerd Font:size=14",
-    "Siji:size=14",
-    "JoyPixels:pixelsize=20:antialias=true:autohint=true",
-    "MaterialIcons:size=10",
-    "xos4 Terminus:size=12"};
+    "Source Code Pro:size=12",
+    "FiraCode Nerd Font:size=12",
+	"remixicon:size=12",
+	"Siji:size=12",
+	"MaterialIcons:size=12"};
 
 static const char *prompt =
     NULL; /* -p  option; prompt to the left of input field */
