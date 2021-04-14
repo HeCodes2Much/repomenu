@@ -1490,7 +1490,7 @@ static void setup(void) {
   utf8 = XInternAtom(dpy, "UTF8_STRING", False);
 
   /* calculate menu geometry */
-  bh = drw->fonts->h + 5;
+  bh = drw->fonts->h + 12;
   bh = MAX(bh, lineheight); /* make a menu line AT LEAST 'lineheight' tall */
 
   lines = MAX(lines, 0);
@@ -1822,7 +1822,7 @@ int main(int argc, char *argv[]) {
         lineheight = atoi(argv[++i]);
         lineheight =
             MAX(lineheight,
-                4); /* reasonable default in case of value too small/negative */
+                8); /* reasonable default in case of value too small/negative */
       }
     } else if (!strcmp(argv[i], "-a")) /* animation duration */
       framecount = atoi(argv[++i]);
@@ -1879,7 +1879,7 @@ int main(int argc, char *argv[]) {
   lrpad = drw->fonts->h;
 
   if (fullheight || lineheight == -1)
-    lineheight = drw->fonts->h * 1.5;
+    lineheight = drw->fonts->h * 2.5;
 
   if (prompt && dmw && TEXTW(prompt) + 100 > dmw && dmw < mw - 300)
     dmw += TEXTW(prompt);
