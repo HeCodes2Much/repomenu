@@ -24,8 +24,8 @@ static int commented = 0;
 static const char *fonts[] = {
     "Misc Termsyn:size=12",
     "Cantarell-Regular:size=12",
+    "FiraCode Nerd Font:size=14",
     "Siji:size=14",
-	"FiraCode Nerd Font:size=14",
     "JoyPixels:pixelsize=20:antialias=true:autohint=true",
     "MaterialIcons:size=10",
     "xos4 Terminus:size=12"};
