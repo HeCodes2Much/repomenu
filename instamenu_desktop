@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# path:       /usr/bin/instamenu_desktop
+# author:     The-Repo-Club [wayne6324@gmail.com]
+# github:     https://github.com/The-Repo-Club/instamenu
+# date:       2021-01-03 12:34:47.440579
+
+# associative array to store paths as basename values
+declare -A PATHS
+
+# check we have required software
+if ! hash awk find grep instamenu &>/dev/null; then
+    echo -e "ERROR: This script requires: awk find grep dmenu" && exit 1
+fi
+
+main() {
+    # base file name storage
+    local names=""
+    while read -r f; do
+        n="$(basename "$f" | awk -F'.' '{print $1}')"
+        names="$names\n$n"
+        PATHS["$n"]="$f"
+    done <<< "$(find -L /usr/share/applications/ -type f -name '*.desktop' | sort)"
+
+    local ans="$(echo -e "$names" | awk NF | instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p "Launcher" -q "Launch a app" "$@")"
+    [[ $? != 1 && -n $ans ]] && run "$ans" || return 1
+}
+
+run() {
+    local cmd
+    cmd="$(grep '^Exec' "${PATHS["$1"]}")"
+    cmd="${cmd/Exec=/}"
+    cmd="${cmd/ %*/}"
+    echo -e "$cmd" | head -n1 | cut -d " " -f1
+    command=$(echo -e "$cmd" | head -n1 | cut -d " " -f1)
+    { [[ $command ]] && "$command" || return 1; }
+    if [[ $? != 0 ]]; then
+        echo "ERROR: Something went wrong when trying to run: $command"
+        return 1
+    fi
+    return 0
+}
+
+main "$@" &
+
+exit 0

@@ -22,11 +22,11 @@ static int commented = 0;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-    "Source Code Pro:size=12",
-    "FiraCode Nerd Font:size=12",
-	"remixicon:size=12",
-	"Siji:size=12",
-	"MaterialIcons:size=12"};
+    "Source Code Pro:size=10",
+    "remixicon:size=12",
+    "Siji:size=12",
+    "MaterialIcons:size=10",
+    "FiraCode Nerd Font:size=12",};
 
 static const char *prompt =
     NULL; /* -p  option; prompt to the left of input field */
@@ -66,4 +66,4 @@ static const char worddelimiters[] = " ";
 static unsigned int preselected = 0;
 
 /* Size of the window border */
-static unsigned int border_width = 4;
+static unsigned int border_width = 2;
