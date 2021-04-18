@@ -56,7 +56,8 @@ class InstamenuDesktop:
            -h, --help               display this message
            -l, --locale=LOCALE      use LOCALE (e.g. 'en_GB') for localisation of
                                     "Name", default is system locale
-           -m, --instamenu=COMMAND      run this command for instamenu, default 'instamenu -i'
+           -m, --instamenu=COMMAND  run this command for instamenu, default 
+                                    'instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
            -t, --term=COMMAND       use this command for programs that need to be run
                                     in a terminal, default 'i3-sensible-terminal -e'
     """)
