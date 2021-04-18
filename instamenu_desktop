@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  Copyright (c) 2021, TheRepoClub
-# 
+#
 # This script is meant as a drop in replacement for i3-menu-desktop but
 # includes simple priorization of applications via the absolute run count
 # of an application. The count is stored in a sqlite db.
@@ -16,9 +16,12 @@ from subprocess import Popen, PIPE, STDOUT
 from pathlib import Path
 from os import environ
 from os.path import isdir, isfile, expanduser
+from gi.repository import Gio
 
 class InstamenuDesktop:
     def __init__(self):
+        self.gso = Gio.Settings.new("org.therepoclub.instamenu.preferences")
+        self.terminal = self.gso.get_value("terminal")
         self.home = environ["HOME"]
         self.exec_flags = [re.compile(r'%[dDnNvm]'), re.compile(r'%[fFuUcik]')]
         # Session Data object, short name because of lazyness/readability
@@ -28,7 +31,7 @@ class InstamenuDesktop:
         self.locale = locale.LC_CTYPE
         self.instamenu_cmd = 'instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
         self.entry_type = 'name'
-        self.term = 'i3-sensible-terminal -e'
+        self.term = f'{self.terminal} -e'
         self.parse_args()
 
     def get_config_base(self):
@@ -56,7 +59,7 @@ class InstamenuDesktop:
            -h, --help               display this message
            -l, --locale=LOCALE      use LOCALE (e.g. 'en_GB') for localisation of
                                     "Name", default is system locale
-           -m, --instamenu=COMMAND  run this command for instamenu, default 
+           -m, --instamenu=COMMAND  run this command for instamenu, default
                                     'instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
            -t, --term=COMMAND       use this command for programs that need to be run
                                     in a terminal, default 'i3-sensible-terminal -e'
@@ -64,7 +67,7 @@ class InstamenuDesktop:
 
     def parse_args(self):
         """ parse given commandline arguments"""
-        opts, args = getopt.getopt(sys.argv[1:],"d:e:hl:m:t", ["database=", "instamenu=", 
+        opts, args = getopt.getopt(sys.argv[1:],"d:e:hl:m:t", ["database=", "instamenu=",
                                    "entry-type=", "help", "locale=", "term="])
         for opt, arg in opts:
             if opt == '-h' or opt == "--help":
@@ -198,12 +201,12 @@ class InstamenuDesktop:
                 app_info["terminal"] = False
                 if 'Terminal' in data.keys() and data["Terminal"] == "true":
                     app_info["terminal"] = True
-                    
+
                 # basically do a basename <file> .desktop, python basename
                 # does not support a suffix and will use split anyway
                 app_info["filename"] = f.split("/")[-1].split(".")[0]
                 key = app_info[self.entry_type]
-        
+
                 # set prio in app data, prio needs to be lower case
                 app_info["prio"] = (0, key.lower())
                 if name.lower() in self.db_info.keys():
@@ -242,7 +245,7 @@ class InstamenuDesktop:
         """ run selected command """
         app = self.apps[choice]
         cmd = app["command"]
-        
+
         if app["terminal"]:
             Popen(f"{self.term} {app['command']}".split())
         else:
