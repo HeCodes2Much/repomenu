@@ -23,10 +23,10 @@ static int commented = 0;
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
     "Source Code Pro:size=10",
+    "FiraCode Nerd Font:size=12",
     "remixicon:size=12",
     "Siji:size=12",
-    "MaterialIcons:size=10",
-    "FiraCode Nerd Font:size=12",};
+    "MaterialIcons:size=10",};
 
 static const char *prompt =
     NULL; /* -p  option; prompt to the left of input field */
