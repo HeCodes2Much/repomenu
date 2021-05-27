@@ -30,12 +30,12 @@ case "$1" in
     while [ -z "$ANSWER" ]; do
         if ! [ ${#2} -ge 30 ]; then
             ANSWER=$(echo ">>h ${2:-confirm}
-$YESCOLOR 
+$YESCOLOR
 $NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100)
         else
             if ! [ ${#2} -ge 60 ]; then
                 ANSWER=$(echo ">>h ${2:-confirm}
-$YESCOLOR 
+$YESCOLOR
 $NOCOLOR" | instamenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
             else
                 ANSWER=$(echo ">>h ${2:-confirm}
