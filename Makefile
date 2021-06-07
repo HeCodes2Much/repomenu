@@ -29,7 +29,7 @@ itest: itest.o
 	$(CC) -o $@ itest.o $(LDFLAGS)
 
 clean:
-	rm -f instamenu itest $(OBJ) instamenu-$(VERSION).tar.gz config.h instamenu
+	rm -f instamenu itest $(OBJ) instamenu-$(VERSION).tar.gz config.h
 
 dist: clean
 	mkdir -p instamenu-$(VERSION)
