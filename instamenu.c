@@ -848,8 +848,7 @@ static void keypress(XKeyEvent *ev) {
                 break;
             case XK_j: /* fallthrough */
             case XK_J: /* fallthrough */
-            case XK_m: /* fallthrough */
-            case XK_M:
+            case XK_m:
                 ksym = XK_Return;
                 ev->state &= ~ControlMask;
                 break;
@@ -961,12 +960,6 @@ static void keypress(XKeyEvent *ev) {
             case XK_f:
                 movewordedge(+1);
                 goto draw;
-            case XK_g:
-                ksym = XK_Home;
-                break;
-            case XK_G:
-                ksym = XK_End;
-                break;
             case XK_h:
                 ksym = XK_Up;
                 break;
