@@ -25,5 +25,5 @@ sudo make install
 
 ## is this dmenu?
 
-instamenu is a fork of dmenu and can be used as a drop in replacement, maintaining all dmenu behavior and making all extra features optional
+instamenu is a fork of [instantMenu](https://github.com/instantOS/instantMENU) which is a fork of [dMenu](https://tools.suckless.org/dmenu/). and can be used as a drop in replacement, maintaining all dmenu behavior and making all extra features optional.
 
