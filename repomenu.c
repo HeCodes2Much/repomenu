@@ -65,8 +65,8 @@ static int tempnumer;
 static char text[BUFSIZ] = "";
 static char *embed;
 static int bh, mw, mh;
-static int dmx = 0, dmy = 0; /* put instamenu at these x and y offsets */
-static int dmw = 0;          /* make instamenu this wide */
+static int dmx = 0, dmy = 0; /* put repomenu at these x and y offsets */
+static int dmw = 0;          /* make repomenu this wide */
 static int inputw = 0, promptw, toast = 0, inputonly = 0, passwd = 0,
            nograb = 0, alttab = 0, tabbed = 0;
 static int lrpad; /* sum of left and right padding */
@@ -422,7 +422,7 @@ static void grabfocus(void) {
             return;
         if (managed) {
             XTextProperty prop;
-            char *windowtitle = prompt != NULL ? prompt : "instamenu";
+            char *windowtitle = prompt != NULL ? prompt : "repomenu";
             Xutf8TextListToTextProperty(dpy, &windowtitle, 1, XUTF8StringStyle,
                     &prop);
             XSetWMName(dpy, win, &prop);
@@ -1506,7 +1506,7 @@ static void setup(void) {
     char wmclass[20];
 
     if (!managed)
-        strcpy(wmclass, "instamenu");
+        strcpy(wmclass, "repomenu");
     else
         strcpy(wmclass, "floatmenu");
 
@@ -1728,11 +1728,11 @@ static void setup(void) {
 }
 
 static void usage(void) {
-    fputs("usage: instamenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn "
+    fputs("usage: repomenu [-bfinPv] [-l lines] [-g columns] [-p prompt] [-fn "
             "font]\n"
             "             [-m monitor] [-x xoffset] [-y yoffset] [-w width] [-h "
             "height]\n"
-            "             [-nb color] [-nf color] [-sb color] [-sf color] [-w "
+            "             [-nb color] [-nf color] [-sb color] [-sf color] [-z "
             "windowid]\n"
             "             [-it initialtext] [-ps preselected]\n",
             stderr);
@@ -1777,21 +1777,21 @@ int main(int argc, char *argv[]) {
     for (i = 1; i < argc; i++)
         /* these options take no arguments */
         if (!strcmp(argv[i], "-v")) { /* prints version information */
-            puts("instamenu-" VERSION);
+            puts("repomenu-" VERSION);
             exit(0);
         } else if (!strcmp(argv[i], "-b")) /* appears at the bottom of the screen */
             topbar = 0;
         else if (!strcmp(argv[i], "-f")) /* grabs keyboard before reading stdin */
             fast = 1;
-        else if (!strcmp(argv[i], "-T")) /* launch instamenu in a toast mode that
+        else if (!strcmp(argv[i], "-T")) /* launch repomenu in a toast mode that
                                             times out after a while */
             toast = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-ct")) { /* centers instamenu on screen */
+        else if (!strcmp(argv[i], "-ct")) { /* centers repomenu on screen */
             commented = 1;
             static char commentprompt[200];
             prompt = commentprompt + 1;
             strcpy(prompt, "prompts");
-        } else if (!strcmp(argv[i], "-c")) /* centers instamenu on screen */
+        } else if (!strcmp(argv[i], "-c")) /* centers repomenu on screen */
             centered = 1;
         else if (!strcmp(argv[i], "-C")) /* go to mouse position */
             followcursor = 1;
@@ -1847,7 +1847,7 @@ int main(int argc, char *argv[]) {
         else if (!strcmp(argv[i],
                     "-y")) /* window y offset (from bottom up if -b) */
             dmy = atoi(argv[++i]);
-        else if (!strcmp(argv[i], "-w")) /* make instamenu this wide */
+        else if (!strcmp(argv[i], "-w")) /* make repomenu this wide */
             dmw = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-m")) /* select monitor */
             mon = atoi(argv[++i]);
@@ -1874,7 +1874,7 @@ int main(int argc, char *argv[]) {
             colortemp[SchemeSel][ColBg] = argv[++i];
         else if (!strcmp(argv[i], "-sf")) /* selected foreground color */
             colortemp[SchemeSel][ColFg] = argv[++i];
-        else if (!strcmp(argv[i], "-W")) /* embedding window id */
+        else if (!strcmp(argv[i], "-z")) /* embedding window id */
             embed = argv[++i];
         else if (!strcmp(argv[i], "-bw"))
             border_width = atoi(argv[++i]); /* border width */

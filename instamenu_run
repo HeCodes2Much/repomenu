@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# path:       /usr/bin/instamenu_run
-# author:     The-Repo-Club [wayne6324@gmail.com]
-# github:     https://github.com/The-Repo-Club/instamenu
-# date:       2021-01-03 12:34:47.440579
-
-instamenu_path | instamenu "$@" | ${SHELL:-"/bin/sh"} &

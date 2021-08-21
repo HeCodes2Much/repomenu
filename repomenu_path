@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# path:       /usr/bin/instamenu_path
+# path:       /usr/bin/repomenu_path
 # author:     The-Repo-Club [wayne6324@gmail.com]
-# github:     https://github.com/The-Repo-Club/instamenu
+# github:     https://github.com/The-Repo-Club/repomenu
 # date:       2021-01-03 12:34:47.440579
 
 cachedir="${XDG_CACHE_HOME:-"$HOME/.cache"}"
-cache="$cachedir/instamenu_run"
+cache="$cachedir/repomenu_run"
 
 [ ! -e "$cachedir" ] && mkdir -p "$cachedir"
 

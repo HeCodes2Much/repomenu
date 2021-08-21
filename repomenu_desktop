@@ -20,54 +20,54 @@ from gi.repository import Gio
 
 class InstamenuDesktop:
     def __init__(self):
-        self.gso = Gio.Settings.new("org.therepoclub.instamenu.preferences")
+        self.gso = Gio.Settings.new("org.therepoclub.repomenu.preferences")
         self.terminal = self.gso.get_value("terminal")
         self.home = environ["HOME"]
         self.exec_flags = [re.compile(r'%[dDnNvm]'), re.compile(r'%[fFuUcik]')]
         # Session Data object, short name because of lazyness/readability
         self.get_config_base()
         self.ENTRY_TYPES = ["name", "command", "filename"]
-        self.db = f'{self.config_base}/instamenu-desktop.db'
+        self.db = f'{self.config_base}/repomenu-desktop.db'
         self.locale = locale.LC_CTYPE
-        self.instamenu_cmd = 'instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
+        self.repomenu_cmd = 'repomenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
         self.entry_type = 'name'
         self.term = f'{self.terminal} -e'
         self.parse_args()
 
     def get_config_base(self):
         """ get the base directory for config files, it uses
-        $XDG_CONFIG_HOME/instamenu and falls back to
-        ~/.config/instamenu """
+        $XDG_CONFIG_HOME/repomenu and falls back to
+        ~/.config/repomenu """
         if 'XDG_CONFIG_HOME' in environ:
-            self.config_base = f'{environ["XDG_CONFIG_HOME"]}/instamenu'
+            self.config_base = f'{environ["XDG_CONFIG_HOME"]}/repomenu'
         else:
-            self.config_base = f'{self.home}/.config/instamenu'
+            self.config_base = f'{self.home}/.config/repomenu'
 
         if not isdir(self.config_base):
             Path(self.config_base).mkdir(parents=True, exist_ok=True)
 
     def show_help(self):
         print("""Usage:
-            instamenu-desktop [OPTIONS]
+            repomenu-desktop [OPTIONS]
 
     Options:
            -d, --database=PATH      path to database file;
-                                    default '$XDG_CONFIG_HOME/instamenu/instamenu-desktop.db'
+                                    default '$XDG_CONFIG_HOME/repomenu/repomenu-desktop.db'
            -e, --entry-type=TYPE    display "Name" (TYPE=name), "Exec" (TYPE=command)
-                                    or .desktop filename (TYPE=filename) in instamenu,
+                                    or .desktop filename (TYPE=filename) in repomenu,
                                     default 'name'
            -h, --help               display this message
            -l, --locale=LOCALE      use LOCALE (e.g. 'en_GB') for localisation of
                                     "Name", default is system locale
-           -m, --instamenu=COMMAND  run this command for instamenu, default
-                                    'instamenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
+           -m, --repomenu=COMMAND  run this command for repomenu, default
+                                    'repomenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
            -t, --term=COMMAND       use this command for programs that need to be run
                                     in a terminal, default 'i3-sensible-terminal -e'
     """)
 
     def parse_args(self):
         """ parse given commandline arguments"""
-        opts, args = getopt.getopt(sys.argv[1:],"d:e:hl:m:t", ["database=", "instamenu=",
+        opts, args = getopt.getopt(sys.argv[1:],"d:e:hl:m:t", ["database=", "repomenu=",
                                    "entry-type=", "help", "locale=", "term="])
         for opt, arg in opts:
             if opt == '-h' or opt == "--help":
@@ -77,8 +77,8 @@ class InstamenuDesktop:
                 self.db = expanduser(arg)
             elif opt == '-l' or opt == '--locale':
                 self.locale = arg
-            elif opt == '-m' or opt == '--instamenu':
-                self.instamenu_cmd = arg
+            elif opt == '-m' or opt == '--repomenu':
+                self.repomenu_cmd = arg
             elif opt == '-t' or opt == '--term':
                 self.term = arg
             elif opt == '-e' or opt == '--entry-type':
@@ -218,14 +218,14 @@ class InstamenuDesktop:
         self.c.execute('SELECT * FROM prio')
         self.db_info = {e[1]: e for e in self.c.fetchall()}
 
-    def run_instamenu(self):
-        """ display instamenu and return choice """
+    def run_repomenu(self):
+        """ display repomenu and return choice """
         # build and sort applist from app.keys()
         applist=list(self.apps.keys())
         applist.sort(key=lambda x: self.apps[x]["prio"])
 
-        # run instamenu and read choice
-        p = Popen(self.instamenu_cmd.split(), stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        # run repomenu and read choice
+        p = Popen(self.repomenu_cmd.split(), stdout=PIPE, stdin=PIPE, stderr=PIPE)
         choice = p.communicate(input=bytearray("\n".join(applist), encoding='utf-8'))
         return choice[0].decode()[:-1].split("\n")[0]
 
@@ -260,7 +260,7 @@ class InstamenuDesktop:
         self.conn_db()
         self.fetch_db_info()
         self.fetch_apps()
-        choice = self.run_instamenu()
+        choice = self.run_repomenu()
         if choice == '':
             self.conn.close()
             exit()

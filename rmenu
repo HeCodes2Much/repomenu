@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# path:       /usr/bin/imenu
+# path:       /usr/bin/rmenu
 # author:     The-Repo-Club [wayne6324@gmail.com]
-# github:     https://github.com/The-Repo-Club/instamenu
+# github:     https://github.com/The-Repo-Club/repomenu
 # date:       2021-01-03 12:34:47.440579
 
 ################################################
-## build menus and GUIs with just instaMENU ##
+## build menus and GUIs with just repoMENU ##
 ################################################
 
-# needs instamenu
+# needs repomenu
 
 echoerr() {
     echo "$@" 1>&2
@@ -31,16 +31,16 @@ case "$1" in
         if ! [ ${#2} -ge 30 ]; then
             ANSWER=$(echo ">>h ${2:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100)
+$NOCOLOR" | repomenu -w 300 -bw 4 -c -l 100)
         else
             if ! [ ${#2} -ge 60 ]; then
                 ANSWER=$(echo ">>h ${2:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
+$NOCOLOR" | repomenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
             else
                 ANSWER=$(echo ">>h ${2:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
+$NOCOLOR" | repomenu -bw 4 -c -l 100 -q "Confirm Settings")
             fi
         fi
 
@@ -68,16 +68,16 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
         if ! [ ${#2} -ge 30 ]; then
             ANSWER=$(echo ">>h ${PROMPT:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -w 300 -bw 4 -c -l 100)
+$NOCOLOR" | repomenu -w 300 -bw 4 -c -l 100)
         else
             if ! [ ${#2} -ge 60 ]; then
                 ANSWER=$(echo ">>h ${PROMPT:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
+$NOCOLOR" | repomenu -w 600 -bw 4 -c -l 100 -q "Confirm Settings")
             else
                 ANSWER=$(echo ">>h ${PROMPT:-confirm}
 $YESCOLOR
-$NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
+$NOCOLOR" | repomenu -bw 4 -c -l 100 -q "Confirm Settings")
             fi
         fi
 
@@ -92,21 +92,21 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
     ;;
 -w) # waiting thingy
     echo "> $2
-:g OK" | instamenu -h -1 -l 20 -c -bw 4 -w -1 -q "loading..." &
+:g OK" | repomenu -h -1 -l 20 -c -bw 4 -w -1 -q "loading..." &
     ;;
 -e) # error message
     echo "> $2
-:r OK" | instamenu -h -1 -l 20 -c -bw 4 -w -1 -q "error"
+:r OK" | repomenu -h -1 -l 20 -c -bw 4 -w -1 -q "error"
     ;;
 
 -P) # password dialog
-    echo "" | instamenu -bw 4 -p "${2:-enter password}" -P -c -w 800
+    echo "" | repomenu -bw 4 -p "${2:-enter password}" -P -c -w 800
     ;;
 -i) # input dialog
     if [ -z "$4" ]; then
-        echo "" | instamenu -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
+        echo "" | repomenu -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
     else
-        echo "" | instamenu -it "$4" -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
+        echo "" | repomenu -it "$4" -h -1 -bw 4 -q "${3:-enter to confirm}" -p "${2:-enter text}" -c -w 800 -I
     fi
     ;;
 -m) # message
@@ -116,7 +116,7 @@ $NOCOLOR" | instamenu -bw 4 -c -l 100 -q "Confirm Settings")
 OK"
     PROMPTHEIGHT="$(wc -l <<<"$PROMPT")"
 
-    echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
+    echo "$PROMPT" | repomenu -bw 4 -l 20 -c -q "$2"
     ;;
 -M) # message from stdin
     PROMPT="$(sed 's/^/> /g' </dev/stdin)"
@@ -126,14 +126,14 @@ OK"
     PROMPTHEIGHT=$(wc -l <<<"$PROMPT")
 
     if [ "$PROMPTHEIGHT" -lt 6 ]; then
-        echo "$PROMPT" | instamenu -bw 4 -h -1 -l 20 -c -q "$2"
+        echo "$PROMPT" | repomenu -bw 4 -h -1 -l 20 -c -q "$2"
     else
-        echo "$PROMPT" | instamenu -bw 4 -l 20 -c -q "$2"
+        echo "$PROMPT" | repomenu -bw 4 -l 20 -c -q "$2"
     fi
     ;;
 
 -t) # show an android like toast
-    echo "> $2" | instamenu -T 35 -w -1 -l 10 -bw 5 -x 1000000 -y -1 -q 'alert' &
+    echo "> $2" | repomenu -T 35 -w -1 -l 10 -bw 5 -x 1000000 -y -1 -q 'alert' &
     ;;
 -l) # choose item from list
     ASTDIN="$(cat /dev/stdin)"
@@ -153,9 +153,9 @@ OK"
 
     while ! grep -q .. <<<"$ANSWER"; do
         if [ -z "$ICONMODE" ]; then
-            ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -bw 4 -p "${2:-choose}" -c -l 20)
+            ANSWER=$(echo "$ASTDIN" | repomenu -ps "$PRESELECT" -i -bw 4 -p "${2:-choose}" -c -l 20)
         else
-            ANSWER=$(echo "$ASTDIN" | instamenu -ps "$PRESELECT" -i -h -1 -w -1 -bw 4 -p "${2:-choose}" -c -l 20)
+            ANSWER=$(echo "$ASTDIN" | repomenu -ps "$PRESELECT" -i -h -1 -w -1 -bw 4 -p "${2:-choose}" -c -l 20)
         fi
         if [ -z "$ANSWER" ] && [ -n "$IMENUACCEPTEMPTY" ]; then
             exit 0
