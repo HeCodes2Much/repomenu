@@ -1,8 +1,8 @@
 config.h
 drw.o
 util.o
-instamenu
-instamenu.o
-itest
-itest.o
+repomenu
+repomenu.o
+rtest
+rtest.o
 tags

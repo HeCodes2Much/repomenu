@@ -18,7 +18,7 @@ from os import environ
 from os.path import isdir, isfile, expanduser
 from gi.repository import Gio
 
-class InstamenuDesktop:
+class RepomenuDesktop:
     def __init__(self):
         self.gso = Gio.Settings.new("org.therepoclub.repomenu.preferences")
         self.terminal = self.gso.get_value("terminal")
@@ -269,5 +269,5 @@ class InstamenuDesktop:
 
 
 if __name__ == "__main__":
-    InstamenuDesktop().main()
+    RepomenuDesktop().main()
 

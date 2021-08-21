@@ -1,4 +1,4 @@
-# instamenu version
+# repomenu version
 VERSION = 5.0
 
 # paths
