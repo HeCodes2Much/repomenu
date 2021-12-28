@@ -558,7 +558,7 @@ static void match(void) {
     if (commented) {
         struct item *it;
         for (it = items; it && it->text; it++) {
-            if (text && it->text[0] == text[0]) {
+            if (it->text[0] == text[0]) {
                 puts(it->text);
                 cleanup();
                 exit(0);
@@ -679,10 +679,6 @@ static void movewordedge(int dir) {
 }
 
 static void keyrelease(XKeyEvent *ev) {
-    char buf[32];
-    int len;
-    KeySym ksym;
-    Status status;
     if (!alttab)
         return;
     if (tabbed) {
@@ -705,7 +701,7 @@ static void keyrelease(XKeyEvent *ev) {
     }
 }
 
-double easeOutQuint(double t) { return 1 + (--t) * t * t; }
+double easeOutQuint(double t) { return 1 * t * t; }
 
 void animatesel(struct item *item) {
     if (!animated || !framecount)

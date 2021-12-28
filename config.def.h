@@ -26,15 +26,16 @@ static const char *fonts[] = {
     "FiraCode Nerd Font:size=12",
     "remixicon:size=12",
     "Siji:size=12",
-    "MaterialIcons:size=10",};
+    "MaterialIcons:size=10",
+    "SourceCodePro Nerd Font:size=10",};
 
-static const char *prompt =
+static char *prompt =
     NULL; /* -p  option; prompt to the left of input field */
-static const char *searchtext =
+static char *searchtext =
     NULL; /* -p  option; prompt to the left of input field */
-static const char *leftcmd =
+static char *leftcmd =
     NULL; /* -p  option; prompt to the left of input field */
-static const char *rightcmd =
+static char *rightcmd =
     NULL; /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][12] = {
     /*     fg         bg       */

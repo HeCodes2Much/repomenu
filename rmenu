@@ -187,7 +187,7 @@ OK"
     }
 
     while ! [ "$ANSWER" = "OK" ]; do
-        ANSWER="$(imenu -l 'type ok to confirm' <"$AFILE")"
+        ANSWER="$(rmenu -l 'type ok to confirm' <"$AFILE")"
         if grep -q '^OK' <<<"$ANSWER"; then
             quit
         fi
