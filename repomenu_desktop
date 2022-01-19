@@ -21,7 +21,7 @@ from gi.repository import Gio
 class RepomenuDesktop:
     def __init__(self):
         self.gso = Gio.Settings.new("org.therepoclub.repomenu.preferences")
-        self.terminal = self.gso.get_value("terminal")
+        self.terminal = str(self.gso.get_value("terminal")).replace("'","")
         self.home = environ["HOME"]
         self.exec_flags = [re.compile(r'%[dDnNvm]'), re.compile(r'%[fFuUcik]')]
         # Session Data object, short name because of lazyness/readability
@@ -267,8 +267,5 @@ class RepomenuDesktop:
         self.update_prio(choice)
         self.run_app(choice)
 
-
 if __name__ == "__main__":
     RepomenuDesktop().main()
-
-
