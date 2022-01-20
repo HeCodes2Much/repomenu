@@ -1,10 +1,25 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# -*-coding:utf-8 -*-
+# Auto updated?
+#   Yes
+#File :
+#   repomenu_desktop
+#Author :
+#   The-Repo-Club [wayne6324:gmail.com]
+#Github :
+#   https://github.com/The-Repo-Club/
 #
-#  Copyright (c) 2021, TheRepoClub
+# Created:
+#   Thu 20 January 2022, 04:54:49 PM [GMT]
+# Last edited:
+#   Thu 20 January 2022, 04:55:07 PM [GMT]
 #
-# This script is meant as a drop in replacement for i3-menu-desktop but
-# includes simple priorization of applications via the absolute run count
-# of an application. The count is stored in a sqlite db.
+# Description:
+#   This script is meant as a drop in replacement for i3-menu-desktop but
+#   includes simple priorization of applications via the absolute run count
+#   of an application. The count is stored in a sqlite db.
+#
+
 import sqlite3
 import glob
 import locale

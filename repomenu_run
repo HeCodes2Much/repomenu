@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
-
-# path:       /usr/bin/repomenu_run
-# author:     The-Repo-Club [wayne6324@gmail.com]
-# github:     https://github.com/The-Repo-Club/repomenu
-# date:       2021-01-03 12:34:47.440579
+# -*-coding:utf-8 -*-
+# Auto updated?
+#   Yes
+#File :
+#   repomenu_run
+#Author :
+#   The-Repo-Club [wayne6324:gmail.com]
+#Github :
+#   https://github.com/The-Repo-Club/
+#
+# Created:
+#   Thu 20 January 2022, 04:55:34 PM [GMT]
+# Last edited:
+#   Thu 20 January 2022, 04:55:36 PM [GMT]
+#
+# Description:
+#   <Todo>
+#
 
 repomenu_path | repomenu "$@" | ${SHELL:-"/bin/sh"} &

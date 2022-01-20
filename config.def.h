@@ -29,14 +29,10 @@ static const char *fonts[] = {
     "MaterialIcons:size=10",
     "SourceCodePro Nerd Font:size=10",};
 
-static char *prompt =
-    NULL; /* -p  option; prompt to the left of input field */
-static char *searchtext =
-    NULL; /* -p  option; prompt to the left of input field */
-static char *leftcmd =
-    NULL; /* -p  option; prompt to the left of input field */
-static char *rightcmd =
-    NULL; /* -p  option; prompt to the left of input field */
+static char *prompt = NULL; /* -p  option; prompt to the left of input field */
+static char *searchtext = NULL; /* -p  option; prompt to the left of input field */
+static char *leftcmd = NULL; /* -p  option; prompt to the left of input field */
+static char *rightcmd = NULL; /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][12] = {
     /*     fg         bg       */
     [SchemeNorm] = {"#bd93f9", "#282a36", "#282a36"},

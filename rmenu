@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
-
-# path:       /usr/bin/rmenu
-# author:     The-Repo-Club [wayne6324@gmail.com]
-# github:     https://github.com/The-Repo-Club/repomenu
-# date:       2021-01-03 12:34:47.440579
-
-################################################
-## build menus and GUIs with just repoMENU ##
-################################################
-
-# needs repomenu
+# -*-coding:utf-8 -*-
+# Auto updated?
+#   Yes
+#File :
+#   rmenu
+#Author :
+#   The-Repo-Club [wayne6324:gmail.com]
+#Github :
+#   https://github.com/The-Repo-Club/
+#
+# Created:
+#   Thu 20 January 2022, 04:55:57 PM [GMT]
+# Last edited:
+#   Thu 20 January 2022, 04:56:33 PM [GMT]
+#
+# Description:
+#   build menus and GUIs with just repomenu
+#   needs repomenu
+#
 
 echoerr() {
     echo "$@" 1>&2
