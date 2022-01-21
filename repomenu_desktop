@@ -4,15 +4,15 @@
 #   Yes
 #File :
 #   repomenu_desktop
-#Author :
+#Author:
 #   The-Repo-Club [wayne6324@gmail.com]
-#Github :
+#Github:
 #   https://github.com/The-Repo-Club/
 #
 # Created:
 #   Thu 20 January 2022, 04:54:49 PM [GMT]
-# Last edited:
-#   Thu 20 January 2022, 04:55:07 PM [GMT]
+# Modified:
+#   Fri 21 January 2022, 02:29:56 PM [GMT]
 #
 # Description:
 #   This script is meant as a drop in replacement for i3-menu-desktop but
