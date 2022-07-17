@@ -1,23 +1,26 @@
 #!/usr/bin/env python
-# -*-coding:utf-8 -*-
-# Auto updated?
+#-*-coding:utf-8 -*-
+#Auto updated?
 #   Yes
 #File :
 #   repomenu_desktop
-#Author:
+#Author :
 #   The-Repo-Club [wayne6324@gmail.com]
-#Github:
+#Github :
 #   https://github.com/The-Repo-Club/
 #
-# Created:
-#   Thu 20 January 2022, 04:54:49 PM [GMT]
-# Modified:
-#   Fri 21 January 2022, 02:29:56 PM [GMT]
+#Created:
+#   Thu 20 January 2022, 04:54:49 PM [GMT+1]
+#Last edited:
+#   Sun 17 July 2022, 03:54:26 PM [GMT+1]
 #
-# Description:
+#Description:
 #   This script is meant as a drop in replacement for i3-menu-desktop but
 #   includes simple priorization of applications via the absolute run count
 #   of an application. The count is stored in a sqlite db.
+#
+#Dependencies:
+#   <None>
 #
 
 import sqlite3
@@ -35,8 +38,7 @@ from gi.repository import Gio
 
 class RepomenuDesktop:
     def __init__(self):
-        self.gso = Gio.Settings.new("org.therepoclub.repomenu.preferences")
-        self.terminal = str(self.gso.get_value("terminal")).replace("'","")
+        self.terminal = 'repo-exec terminal'
         self.home = environ["HOME"]
         self.exec_flags = [re.compile(r'%[dDnNvm]'), re.compile(r'%[fFuUcik]')]
         # Session Data object, short name because of lazyness/readability
@@ -44,7 +46,7 @@ class RepomenuDesktop:
         self.ENTRY_TYPES = ["name", "command", "filename"]
         self.db = f'{self.config_base}/repomenu-desktop.db'
         self.locale = locale.LC_CTYPE
-        self.repomenu_cmd = 'repomenu -h 50 -i -l 10 -w 400 -x 10 -y 36 -p Launcher -q Search...'
+        self.repomenu_cmd = 'repomenu -h 50 -i -l 10 -w 600 -c -q Search...'
         self.entry_type = 'name'
         self.term = f'{self.terminal} -e'
         self.parse_args()
