@@ -1,5 +1,5 @@
 # repomenu version
-VERSION = 5.0
+VERSION = 2022.07.18
 
 # paths
 PREFIX = /usr
