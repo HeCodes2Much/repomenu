@@ -58,7 +58,6 @@ install: all
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_path
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu_run
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dtest
-	mkdir -p $(DESTDIR)$(SHAREPREFIX)/repomenu
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < repomenu.1 > $(DESTDIR)$(MANPREFIX)/man1/repomenu.1
 	sed "s/VERSION/$(VERSION)/g" < rtest.1 > $(DESTDIR)$(MANPREFIX)/man1/rtest.1
@@ -74,7 +73,6 @@ uninstall:
 		$(DESTDIR)$(PREFIX)/bin/dmenu_path\
 		$(DESTDIR)$(PREFIX)/bin/dmenu_run\
 		$(DESTDIR)$(PREFIX)/bin/dtest\
-		$(DESTDIR)$(SHAREPREFIX)/repomenu\
 		$(DESTDIR)$(MANPREFIX)/man1/repomenu.1\
 		$(DESTDIR)$(MANPREFIX)/man1/rtest.1
 
